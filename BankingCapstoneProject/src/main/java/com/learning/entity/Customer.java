@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="customers")
@@ -14,8 +16,10 @@ public class Customer {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String userName;
+	@NotBlank(message="FULLNAME CANNOT BE EMPTY")
 	private String fullName;
 	private String password;
+	@Size(min=2, max=15, message="PHONE NUMBER CAN BE 2-15 DIGITS")
 	private String phone;
 	private String secretQuestion;
 	private String secretAnswer;

@@ -2,6 +2,8 @@ package com.learning.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -33,7 +35,7 @@ public class CustomerController {
 		return customerService.createCustomerAccount(id, account);
 	}
 	@PutMapping("/{id}")
-	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") long id) {
+	public Customer updateCustomer(@Valid @RequestBody Customer customer, @PathVariable("id") long id) {
 		return customerService.updateCustomer(customer,id);
 	}
 
