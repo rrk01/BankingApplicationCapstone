@@ -31,7 +31,7 @@ public class CustomerController {
 		return customerService.registerCustomer(customer);
 	}
 	@PostMapping("/{id}/account")
-	public Account createCustomerAccount(@PathVariable long id,@RequestBody Account account) {
+	public Account createCustomerAccount(@Valid @PathVariable long id,@RequestBody Account account) {
 		return customerService.createCustomerAccount(id, account);
 	}
 	@PutMapping("/{id}")
