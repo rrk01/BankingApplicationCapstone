@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,6 +31,10 @@ public class CustomerController {
 	@PostMapping("/{id}/account")
 	public Account createCustomerAccount(@PathVariable long id,@RequestBody Account account) {
 		return customerService.createCustomerAccount(id, account);
+	}
+	@PutMapping("/{id}")
+	public Customer updateCustomer(@RequestBody Customer customer, @PathVariable("id") long id) {
+		return customerService.updateCustomer(customer,id);
 	}
 
 }

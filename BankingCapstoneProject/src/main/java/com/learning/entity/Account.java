@@ -11,7 +11,7 @@ enum accounttype{
 	SB,CA
 }
 @Entity
-@Table
+@Table(name="accounts")
 public class Account {
 	private accounttype accountType;
 	private float accountBalance;
