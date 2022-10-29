@@ -38,4 +38,17 @@ public class CustomerService {
 	public List<Account> findAllCustomerAccount(long accountNumber) {
 		return accountRepo.findAll();
 	}
+	public Customer updateCustomer(Customer cust, long id) {
+		Customer customer= customerRepo.getById(id);
+		
+		customer.setId(cust.getId());
+		customer.setFullName(cust.getFullName());
+		customer.setPassword(cust.getPassword());
+		customer.setPhone(cust.getPhone());
+		customer.setSecretQuestion(cust.getSecretQuestion());
+		customer.setSecretAnswer(cust.getSecretAnswer());
+		customer.setUserName(cust.getUserName());
+		
+		return customerRepo.save(customer);
+	}
 }

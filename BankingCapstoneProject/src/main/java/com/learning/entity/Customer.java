@@ -6,26 +6,62 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
-@Table
+@Table(name="customers")
 public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String userName;
+	@NotBlank(message="FULLNAME CANNOT BE EMPTY")
 	private String fullName;
 	private String password;
-	public Customer(long id, String userName, String fullName, String password) {
+	@Size(min=2, max=15, message="PHONE NUMBER CAN BE 2-15 DIGITS")
+	private String phone;
+	private String secretQuestion;
+	private String secretAnswer;
+
+	public Customer(long id, String userName, String fullName, String password, String phone, String secretQuestion,
+			String secretAnswer) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.fullName = fullName;
 		this.password = password;
+		this.phone = phone;
+		this.secretQuestion = secretQuestion;
+		this.secretAnswer = secretAnswer;
 	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getSecretQuestion() {
+		return secretQuestion;
+	}
+
+	public void setSecretQuestion(String secretQuestion) {
+		this.secretQuestion = secretQuestion;
+	}
+
+	public String getSecretAnswer() {
+		return secretAnswer;
+	}
+
+	public void setSecretAnswer(String secretAnswer) {
+		this.secretAnswer = secretAnswer;
+	}
+
 	public Customer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public long getId() {
 		return id;
@@ -52,4 +88,11 @@ public class Customer {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "Customer [id=" + id + ", userName=" + userName + ", fullName=" + fullName + ", password=" + password
+				+ ", phone=" + phone + ", secretQuestion=" + secretQuestion + ", secretAnswer=" + secretAnswer + "]";
+	}
+
+	
 }
