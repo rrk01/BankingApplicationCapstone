@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,6 +78,10 @@ public class CustomerController {
 	@GetMapping("/{custID}/beneficiary")
 	public List<Beneficiary> getBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
 		return customerService.getBeneficiary(beneficiary, custID)
+	}
+	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
+	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
 
 }

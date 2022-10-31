@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.learning.controller.Beneficiary;
+import com.learning.controller.Public;
 import com.learning.entity.Account;
 import com.learning.entity.Customer;
 import com.learning.repo.AccountRepo;
@@ -76,5 +77,8 @@ public class CustomerService {
 			beneficiaries.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber()))
 		}
 		return beneficiariesList	
+	}
+	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+		return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);
 	}
 }
