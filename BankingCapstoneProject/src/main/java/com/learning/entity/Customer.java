@@ -15,6 +15,7 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	private int SSN;
 	private String userName;
 	@NotBlank(message="FULLNAME CANNOT BE EMPTY")
 	private String fullName;
@@ -25,10 +26,11 @@ public class Customer {
 	private String secretAnswer;
 	//////////// boolean or enum enabled or disabled customer
 
-	public Customer(long id, String userName, String fullName, String password, String phone, String secretQuestion,
+	public Customer(long id,int SSN, String userName, String fullName, String password, String phone, String secretQuestion,
 			String secretAnswer) {
 		super();
 		this.id = id;
+		this.SSN=SSN;
 		this.userName = userName;
 		this.fullName = fullName;
 		this.password = password;
@@ -93,6 +95,14 @@ public class Customer {
 	public String toString() {
 		return "Customer [id=" + id + ", userName=" + userName + ", fullName=" + fullName + ", password=" + password
 				+ ", phone=" + phone + ", secretQuestion=" + secretQuestion + ", secretAnswer=" + secretAnswer + "]";
+	}
+
+	public int getSSN() {
+		return SSN;
+	}
+
+	public void setSSN(int sSN) {
+		SSN = sSN;
 	}
 
 	

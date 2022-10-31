@@ -14,6 +14,10 @@ enum accounttype{
 @Table(name="accounts")
 public class Account {
 
+	private accounttype accountType;
+	private float accountBalance;
+	private boolean approved;
+
 	@Id
 	private long accountNumber;
 	private accounttype accountType;
@@ -22,8 +26,10 @@ public class Account {
 	/////acct status enum enabled disabled p3-4
 	private Date dateOfCreation;
 	private long customerId;
-	public Account(long accountNumber, accounttype accountType, float accountBalance, String approved,
-			Date dateOfCreation, long customerId) {
+
+	public Account(accounttype accountType, float accountBalance, boolean approved, long accountNumber, Date dateOfCreation,
+			long customerId) {
+
 		super();
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
@@ -48,10 +54,10 @@ public class Account {
 	public void setAccountBalance(float accountBalance) {
 		this.accountBalance = accountBalance;
 	}
-	public String getApproved() {
+	public boolean getApproved() {
 		return approved;
 	}
-	public void setApproved(String approved) {
+	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
 	public long getAccountNumber() {
