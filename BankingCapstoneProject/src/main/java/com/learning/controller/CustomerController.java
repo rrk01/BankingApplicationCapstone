@@ -33,7 +33,7 @@ public class CustomerController {
 		return customerService.registerCustomer(customer);
 	}
 	@PostMapping("/{id}/account")
-	public Account createCustomerAccount(@Valid @PathVariable long id,@RequestBody Account account) {
+	public Account createCustomerAccount(@Valid @PathVariable("id") long id,@RequestBody Account account) {
 		return customerService.createCustomerAccount(id, account);
 	}
 	/*
@@ -49,6 +49,30 @@ public class CustomerController {
 	@PutMapping("/{id}")
 	public Customer updateCustomer(@Valid @RequestBody Customer customer, @PathVariable("id") long id) {
 		return customerService.updateCustomer(customer,id);
+	}
+	@GetMapping("/{custID}/account/{acctID}")
+	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
+		return customerService.findCustomerAccount(acctID);////////////////////////////////////// should acct have transaction column?acct approved /// beneficiary table? p.6 status /// 
+		/// transactions table? enum cr/db p.7//
+		//staff table enum disable enable
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	@PostMapping("/{custID}/beneficiary")
+	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
+		return customerService.addBeneficiary(beneficiary,custID);
 	}
 
 }

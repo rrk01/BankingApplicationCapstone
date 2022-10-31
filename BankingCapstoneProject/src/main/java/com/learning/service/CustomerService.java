@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.learning.controller.Beneficiary;
 import com.learning.entity.Account;
 import com.learning.entity.Customer;
 import com.learning.repo.AccountRepo;
+import com.learning.repo.BeneficiaryRepo;
 import com.learning.repo.CustomerRepo;
 
 @Service
@@ -22,6 +24,8 @@ public class CustomerService {
 	private CustomerRepo customerRepo;
 	@Autowired
 	private AccountRepo accountRepo;
+	@Autowired
+	private BeneficiaryRepo beneficiaryRepo;////////////////////////////////////////////////?????????????????????????????????????????????????????????
 	
 	public Customer registerCustomer(Customer customer) {
 		return customerRepo.save(customer);
@@ -58,5 +62,10 @@ public class CustomerService {
 		customer.setUserName(cust.getUserName());
 		
 		return customerRepo.save(customer);
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public Beneficiary addBeneficiary(Beneficiary beneficiary, long custID) {
+		beneficiary.setStatus();
+		return beneficiaryRepo.save(beneficiary);
 	}
 }
