@@ -26,6 +26,7 @@ public class CustomerService {
 	private AccountRepo accountRepo;
 	@Autowired
 	private BeneficiaryRepo beneficiaryRepo;////////////////////////////////////////////////?????????????????????????????????????????????????????????
+	private List<Object> beneficiariesList;
 	
 	public Customer registerCustomer(Customer customer) {
 		return customerRepo.save(customer);
@@ -67,5 +68,13 @@ public class CustomerService {
 	public Beneficiary addBeneficiary(Beneficiary beneficiary, long custID) {
 		beneficiary.setStatus();
 		return beneficiaryRepo.save(beneficiary);
+	}
+	public List<Beneficiary> getBeneficiary(Beneficiary beneficiary, long custID) {
+		beneficiariesList.clear();
+		List<Account> validAccounts=accountRepo.getValidAccounts(custID);
+		for(Account acct: validAccounts) {
+			beneficiaries.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber()))
+		}
+		return beneficiariesList	
 	}
 }

@@ -74,5 +74,9 @@ public class CustomerController {
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
 		return customerService.addBeneficiary(beneficiary,custID);
 	}
+	@GetMapping("/{custID}/beneficiary")
+	public List<Beneficiary> getBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
+		return customerService.getBeneficiary(beneficiary, custID)
+	}
 
 }
