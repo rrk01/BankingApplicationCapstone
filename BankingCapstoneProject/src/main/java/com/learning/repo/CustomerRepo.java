@@ -1,5 +1,7 @@
 package com.learning.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +15,8 @@ import com.learning.entity.Customer;
 
 @Repository
 public interface CustomerRepo extends JpaRepository<Customer,Long> {
+	
+	@Query(value="SELECT user_name,full_name,phone FROM customers WHERE id=:id", nativeQuery = true)
+	public List<Object> getCustomer(@Param("id") long id);
 	
 }

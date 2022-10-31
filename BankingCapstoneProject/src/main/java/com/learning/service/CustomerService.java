@@ -3,15 +3,20 @@ package com.learning.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.learning.controller.Beneficiary;
+import com.learning.controller.Public;
 import com.learning.entity.Account;
 import com.learning.entity.Customer;
 import com.learning.repo.AccountRepo;
+import com.learning.repo.BeneficiaryRepo;
 import com.learning.repo.CustomerRepo;
 
 @Service
@@ -20,6 +25,9 @@ public class CustomerService {
 	private CustomerRepo customerRepo;
 	@Autowired
 	private AccountRepo accountRepo;
+	@Autowired
+	private BeneficiaryRepo beneficiaryRepo;////////////////////////////////////////////////?????????????????????????????????????????????????????????
+	private List<Object> beneficiariesList;
 	
 	public Customer registerCustomer(Customer customer) {
 		return customerRepo.save(customer);
@@ -38,6 +46,12 @@ public class CustomerService {
 	public List<Account> findAllCustomerAccount(long accountNumber) {
 		return accountRepo.findAll();
 	}
+	public List<Object> getCustomer(long id) {
+		return customerRepo.getCustomer(id);
+	}
+	public List<Customer> getCustomers() {
+		return customerRepo.findAll();
+	}
 	public Customer updateCustomer(Customer cust, long id) {
 		Customer customer= customerRepo.getById(id);
 		
@@ -50,5 +64,21 @@ public class CustomerService {
 		customer.setUserName(cust.getUserName());
 		
 		return customerRepo.save(customer);
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public Beneficiary addBeneficiary(Beneficiary beneficiary, long custID) {
+		beneficiary.setStatus();
+		return beneficiaryRepo.save(beneficiary);
+	}
+	public List<Beneficiary> getBeneficiary(Beneficiary beneficiary, long custID) {
+		beneficiariesList.clear();
+		List<Account> validAccounts=accountRepo.getValidAccounts(custID);
+		for(Account acct: validAccounts) {
+			beneficiaries.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber()))
+		}
+		return beneficiariesList	
+	}
+	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+		return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);
 	}
 }

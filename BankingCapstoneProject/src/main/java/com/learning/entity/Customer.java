@@ -24,6 +24,7 @@ public class Customer {
 	private String phone;
 	private String secretQuestion;
 	private String secretAnswer;
+	//////////// boolean or enum enabled or disabled customer
 
 	public Customer(long id,int SSN, String userName, String fullName, String password, String phone, String secretQuestion,
 			String secretAnswer) {
