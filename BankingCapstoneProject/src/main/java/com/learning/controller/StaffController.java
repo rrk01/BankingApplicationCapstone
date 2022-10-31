@@ -11,12 +11,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learning.entity.Account;
+import com.learning.entity.Beneficiary;
 import com.learning.repo.AccountRepo;
 import com.learning.service.CustomerService;
+import com.learning.service.StaffService;
 
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("/api/staff")
 public class StaffController {
+	
+	@Autowired
+	StaffService staffService;
+	
 	@Autowired
 	CustomerService customerService;
 	@PutMapping("/{id}/account/{accountNumber}")
@@ -32,5 +38,9 @@ public class StaffController {
 	public List<Account> getAllAccounts(@PathVariable long customerId){
 		return customerService.findAllCustomerAccount(customerId);
 	}
-
+	
+	@PutMapping("/beneficiary")
+	public List<Beneficiary> getAllBeneficiary() {
+		return staffService.getAllBeneficiary(); 
+	}
 }
