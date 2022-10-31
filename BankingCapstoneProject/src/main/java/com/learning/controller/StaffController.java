@@ -23,7 +23,7 @@ public class StaffController {
 	public Account approveAccount(@PathVariable long id, @PathVariable long accountNumber) {
 		Account account=customerService.findCustomerAccount(accountNumber);
 		if(id==account.getCustomerId()) {
-			account.setApproved("Yes");
+			account.setApproved(true);
 		}
 		customerService.saveApproval(account);
 		return account;

@@ -1,5 +1,7 @@
 package com.learning.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,4 +14,6 @@ public interface AccountRepo extends JpaRepository<Account,Long> {
 	@Query(value="Select * from Account where id=:id", nativeQuery=true)
 	public Account getAllCustomerAccounts(@Param(value="id") long id);
 
+	@Query(value="Select * FROM accounts where customer_id = :custID and status=valid", nativeQuery= true)
+	public List<Account> getValidAccounts(@Param(value="custID") long id);
 }

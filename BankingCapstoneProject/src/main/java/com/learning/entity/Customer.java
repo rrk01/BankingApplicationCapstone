@@ -15,11 +15,13 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+
 	@NotBlank(message = "SSN CANNOT BE BLANK")
 	@Size(min = 9, max = 9)
 	@Column(name="ssn")
 	private long ssn;
 	@Column(name="user_name")
+
 	private String userName;
 	@NotBlank(message = "FULLNAME CANNOT BE EMPTY!")
 	@Column(name="full_name")
@@ -33,6 +35,7 @@ public class Customer {
 	private String secretQuestion;
 	@Column(name="secret_answer")
 	private String secretAnswer;
+
 	
 	public Customer() {
 		super();
@@ -45,6 +48,7 @@ public class Customer {
 		super();
 		this.id = id;
 		this.ssn = ssn;
+
 		this.userName = userName;
 		this.fullName = fullName;
 		this.password = password;
@@ -115,6 +119,14 @@ public class Customer {
 
 	public void setSecretAnswer(String secretAnswer) {
 		this.secretAnswer = secretAnswer;
+	}
+
+	public int getSSN() {
+		return SSN;
+	}
+
+	public void setSSN(int sSN) {
+		SSN = sSN;
 	}
 
 	
