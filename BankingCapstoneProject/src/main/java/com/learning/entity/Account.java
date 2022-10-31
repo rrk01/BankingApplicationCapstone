@@ -34,7 +34,7 @@ public class Account {
 		this.accountNumber = accountNumber;
 		this.accountType = accountType;
 		this.accountBalance = accountBalance;
-		this.approved = "No";///////////////////////////////////
+		this.approved = false;///////////////////////////////////
 		this.dateOfCreation = dateOfCreation;
 		this.customerId = customerId;
 	}
