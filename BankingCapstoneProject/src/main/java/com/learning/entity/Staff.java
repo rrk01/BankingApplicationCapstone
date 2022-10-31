@@ -7,8 +7,10 @@ import org.springframework.data.annotation.Id;
 @Entity
 @Table
 public class Staff {
-	private String firstName;
 	@Id
+	private long accoutNo;
+	
+	private String firstName;
 	private String userName;
 	private String password;
 	public Staff() {
