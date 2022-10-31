@@ -18,5 +18,4 @@ public class AdminController {
 	public Staff createStaff(@RequestBody Staff staff) {
 		return staffService.createStaffMember(staff);
 	}
-
 }
