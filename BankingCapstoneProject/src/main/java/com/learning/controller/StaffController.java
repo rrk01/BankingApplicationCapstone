@@ -1,8 +1,10 @@
 package com.learning.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +19,18 @@ import com.learning.service.CustomerService;
 public class StaffController {
 	@Autowired
 	CustomerService customerService;
-	@Autowired
-	AccountRepo accountRepo;
 	@PutMapping("/{id}/account/{accountNumber}")
 	public Account approveAccount(@PathVariable long id, @PathVariable long accountNumber) {
 		Account account=customerService.findCustomerAccount(accountNumber);
-		account.setApproved(false);
+		if(id==account.getCustomerId()) {
+			account.setApproved(true);
+		}
 		customerService.saveApproval(account);
 		return account;
+	}
+	@GetMapping("/{customerId}/acocunt")
+	public List<Account> getAllAccounts(@PathVariable long customerId){
+		return customerService.findAllCustomerAccount(customerId);
 	}
 
 }

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.learning.entity;
 
 import java.sql.Date;
@@ -38,9 +35,7 @@ public class Beneficiary {
 		this.approved = approved;
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
 	}
-
-
-
+  
 	public long getBeneficiaryAcNo() {
 		return beneficiaryAcNo;
 	}
