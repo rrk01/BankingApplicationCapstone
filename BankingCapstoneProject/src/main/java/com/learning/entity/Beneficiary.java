@@ -12,6 +12,9 @@ import com.learning.entity.Account;
 @Entity
 @Table
 public class Beneficiary {
+	enum accounttype{
+		SB,CA
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private long beneficiaryAcNo;

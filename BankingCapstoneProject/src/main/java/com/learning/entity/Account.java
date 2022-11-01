@@ -25,9 +25,6 @@ public class Account {
 	@Column(name="account_balance")
 	private BigDecimal accountBalance;
 
-	private accounttype accountType;
-	private float accountBalance;
-
   @Column(name="approved")
 	private boolean approved;
 	@Id
@@ -35,9 +32,6 @@ public class Account {
 	private long accountNumber;
 
 
-	private accounttype accountType;
-	private float accountBalance;
-	private boolean approved;
   
   @Column(name="creation_date")
 	private Date dateOfCreation;
