@@ -26,18 +26,19 @@ import com.learning.repo.CustomerRepo;
 import com.learning.service.CustomerService;
 
 @RestController
-@RequestMapping("/api/customer")
+@RequestMapping("api/customer")
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
 	@PostMapping("/register")
-	public Customer registerCustomer(@Valid @RequestBody Customer customer) {
+	public Customer registerCustomer(@RequestBody Customer customer) {
 		return customerService.registerCustomer(customer);
 	}
 	@PostMapping("/{id}/account")
-	public Account createCustomerAccount(@Valid @PathVariable("id") long id,@RequestBody Account account) {
+	public Account createCustomerAccount(@Valid @PathVariable long id,@RequestBody Account account) {
 		return customerService.createCustomerAccount(id, account);
 	}
+
 	
 	@GetMapping("/{id}")
 	public List<Object> getCustomer(@Valid @PathVariable("id") long id) {
@@ -48,21 +49,26 @@ public class CustomerController {
 	public List<Customer> getCustomers() {
 		return customerService.getCustomers();
 	}
+
 	@PutMapping("/{id}")
 	public Customer updateCustomer(@Valid @RequestBody Customer customer, @PathVariable("id") long id) {
 		return customerService.updateCustomer(customer,id);
 	}
+
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
 		return customerService.findCustomerAccount(acctID);
 	}
+
 	@PostMapping("/{custID}/beneficiary")
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
 		return customerService.addBeneficiary(beneficiary,custID);
 	}
 	@GetMapping("/{custID}/beneficiary")
-	public List<Beneficiary> getBeneficiary(@Valid @PathVariable("custID") long custID) {
-		return customerService.getBeneficiary(custID);
+
+	public List<Beneficiary> getBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
+		return customerService.getBeneficiary(beneficiary, custID);
+
 	}
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
 	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {

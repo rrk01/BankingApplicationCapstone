@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="ACCOUNTS")
 public class Account {
+
 /*
  * accountType: enum (SAVINGS/CHECKING),
  * accountStatus: enum (ENABLED, DISABLED),
@@ -23,11 +24,16 @@ public class Account {
 	private AccountStatus accountStatus;
 	@Column(name="account_balance")
 	private BigDecimal accountBalance;
-	@Column(name="approved")
+
+	private accounttype accountType;
+	private float accountBalance;
+
+  @Column(name="approved")
 	private boolean approved;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long accountNumber;
+
 
 	private accounttype accountType;
 	private float accountBalance;
@@ -44,6 +50,7 @@ public class Account {
 
 	public Account(AccountType accountType, BigDecimal accountBalance, boolean approved, long accountNumber,
 			Date dateOfCreation, long customerId) {
+
 		super();
 		this.accountType = accountType;
 		this.accountBalance = accountBalance;
