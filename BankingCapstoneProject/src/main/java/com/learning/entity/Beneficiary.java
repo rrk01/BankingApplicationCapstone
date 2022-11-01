@@ -3,6 +3,8 @@ package com.learning.entity;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import com.learning.entity.Account;
@@ -10,17 +12,22 @@ import com.learning.entity.Account;
 @Entity
 @Table
 public class Beneficiary {
-	@Id 
+	enum accounttype{
+		SB,CA
+	}
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private long beneficiaryAcNo;
 	private long accountNumber; // CustomerId 
-	private accounttype accountType; // SB or CA
-	private String beneficiaryName; // benef Name
-	private Boolean approved; // (false) as Default
-	private Date beneficiaryAddedDate; // Date get generated after its created similar to date.now()...
+	private accounttype accountType; // SB OR CA
+	private String beneficiaryName; // bene Name
+	private Boolean approved; // false as Default
+	private Date beneficiaryAddedDate;
+	
 	public Beneficiary() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+
 	public Beneficiary(long beneficiaryAcNo, long accountNumber, accounttype accountType, String beneficiaryName,
 			Boolean approved, Date beneficiaryAddedDate) {
 		super();
@@ -31,7 +38,7 @@ public class Beneficiary {
 		this.approved = approved;
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
 	}
-
+  
 	public long getBeneficiaryAcNo() {
 		return beneficiaryAcNo;
 	}
@@ -79,4 +86,6 @@ public class Beneficiary {
 	public void setBeneficiaryAddedDate(Date beneficiaryAddedDate) {
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
 	}
-} 
+	
+	
+}
