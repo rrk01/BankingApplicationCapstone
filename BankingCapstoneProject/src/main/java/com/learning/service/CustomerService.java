@@ -1,5 +1,6 @@
 package com.learning.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,14 +12,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.learning.controller.Beneficiary;
-import com.learning.controller.Public;
 import com.learning.entity.Account;
 import com.learning.entity.Customer;
 import com.learning.repo.AccountRepo;
 import com.learning.repo.BeneficiaryRepo;
 import com.learning.repo.CustomerRepo;
-
+import com.learning.entity.Beneficiary;
 @Service
 public class CustomerService {
 	@Autowired
@@ -27,7 +26,7 @@ public class CustomerService {
 	private AccountRepo accountRepo;
 	@Autowired
 	private BeneficiaryRepo beneficiaryRepo;////////////////////////////////////////////////?????????????????????????????????????????????????????????
-	private List<Object> beneficiariesList;
+	private List<Beneficiary> beneficiaryList = new ArrayList<Beneficiary>();
 	
 	public Customer registerCustomer(Customer customer) {
 		return customerRepo.save(customer);
@@ -67,18 +66,18 @@ public class CustomerService {
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public Beneficiary addBeneficiary(Beneficiary beneficiary, long custID) {
-		beneficiary.setStatus();
+		beneficiary.setApproved(false);
 		return beneficiaryRepo.save(beneficiary);
 	}
-	public List<Beneficiary> getBeneficiary(Beneficiary beneficiary, long custID) {
-		beneficiariesList.clear();
+	public List<Beneficiary> getBeneficiary(long custID) {
+		beneficiaryList.clear();
 		List<Account> validAccounts=accountRepo.getValidAccounts(custID);
 		for(Account acct: validAccounts) {
-			beneficiaries.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber()))
+			beneficiaryList.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber()));
 		}
-		return beneficiariesList	
+		return beneficiaryList;
 	}
-	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);
 	}
 }

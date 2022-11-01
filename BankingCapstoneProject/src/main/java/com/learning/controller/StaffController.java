@@ -22,7 +22,7 @@ public class StaffController {
 	@PutMapping("/{id}/account/{accountNumber}")
 	public Account approveAccount(@PathVariable long id, @PathVariable long accountNumber) {
 		Account account=customerService.findCustomerAccount(accountNumber);
-		account.setApproved("Yes");
+		account.setApproved(false);
 		customerService.saveApproval(account);
 		return account;
 	}
