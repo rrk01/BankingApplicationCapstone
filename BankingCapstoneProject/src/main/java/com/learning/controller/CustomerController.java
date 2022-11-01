@@ -41,13 +41,13 @@ public class CustomerController {
 
 	
 	@GetMapping("/{id}")
-	public List<Object> getCustomer(@Valid @PathVariable("id") long id) {
-		return customerService.getCustomer(id);
+	public Customer getCustomer(@Valid @PathVariable("id") long id) {
+		return customerService.findCustomerById(id);
 	}
 	
 	@GetMapping("/getcustomer")
 	public List<Customer> getCustomers() {
-		return customerService.getCustomers();
+		return customerService.findAllCustomers();
 	}
 
 	@PutMapping("/{id}")

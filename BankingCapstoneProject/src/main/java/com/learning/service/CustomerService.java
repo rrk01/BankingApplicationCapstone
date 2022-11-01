@@ -26,8 +26,6 @@ public class CustomerService {
 	private CustomerRepo customerRepo;
 	@Autowired
 	private BeneficiaryRepo beneficiaryRepo;
-	@Autowired
-	private BeneficiaryRepo beneficiaryRepo; //
 	private List<Beneficiary> beneficiaryList = new ArrayList<Beneficiary>();
   @Autowired
 	private AccountRepo accountRepo;
@@ -50,6 +48,13 @@ public class CustomerService {
 	public List<Account> findAllCustomerAccount(long accountNumber) {
 		return accountRepo.findAll();
 	}
+	public List<Customer> findAllCustomers() {
+		return customerRepo.findAll();
+	}
+	public Customer findCustomerById(long id) {
+		Optional<Customer> CustomerObject=customerRepo.findById(id);
+		return CustomerObject.get();
+	}
 	public Customer updateCustomer(Customer cust, long id) {
 		Customer customer= customerRepo.getById(id);
 		customer.setId(cust.getId());
@@ -71,7 +76,7 @@ public class CustomerService {
 	public List<Beneficiary> getBeneficiary(Beneficiary beneficiary, long custID) {
 		beneficiariesList.clear();
 		List<Beneficiary> beneficiaries=beneficiaryRepo.findAll();
-		List<Account> validAccounts=accountRepo.getAllCustomerAccounts(custID).stream().filter(t->t.getApproved()==true).collect(Collectors.toList());
+		List<Account> validAccounts=accountRepo.getAllCustomerAccounts(custID).stream().filter(t->t.isApproved()==true).collect(Collectors.toList());
 		for(Account acct: validAccounts) {
 			for(int i=0;i<beneficiaries.size();i++) {
 				if(acct.getAccountNumber()==beneficiaries.get(i).getAccountNumber()) {
