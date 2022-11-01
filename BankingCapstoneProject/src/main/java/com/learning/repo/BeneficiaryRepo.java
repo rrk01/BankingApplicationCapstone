@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.learning.repo;
 
 import java.util.List;
@@ -10,11 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-/**
- * @author Greg N.
- * @date :
- * 
- */
+import com.learning.entity.Beneficiary;
+
 @Repository
 public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Long>{
 	

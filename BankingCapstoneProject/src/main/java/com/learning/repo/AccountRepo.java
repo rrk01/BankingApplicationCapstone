@@ -12,8 +12,6 @@ import com.learning.entity.Account;
 public interface AccountRepo extends JpaRepository<Account,Long> {
 	@Modifying
 	@Query(value="Select * from Account where id=:id", nativeQuery=true)
-	public Account getAllCustomerAccounts(@Param(value="id") long id);
+	public List<Account> getAllCustomerAccounts(@Param(value="id") long id);
 
-	@Query(value="Select * FROM accounts where customer_id = :custID and status=valid", nativeQuery= true)
-	public List<Account> getValidAccounts(@Param(value="custID") long id);
 }
