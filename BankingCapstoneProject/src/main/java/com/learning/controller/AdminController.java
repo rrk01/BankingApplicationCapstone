@@ -12,10 +12,11 @@ import com.learning.service.StaffService;
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController {
-//	@Autowired
-//	StaffService staffService;
-//	@PostMapping("/staff")
-//	public Staff createStaff(@RequestBody Staff staff) {
-//		return staffService.createStaffMember(staff);
-//	}
-}
+	@Autowired
+	StaffService staffService;
+	@PostMapping("/staff")
+	public Staff createStaff(@RequestBody Staff staff) {
+		return staffService.createStaffMember(staff);
+	}
+
+} 

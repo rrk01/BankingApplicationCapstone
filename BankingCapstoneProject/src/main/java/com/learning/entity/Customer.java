@@ -15,13 +15,11 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
 	@NotBlank(message = "SSN CANNOT BE BLANK")
 	@Size(min = 9, max = 9)
 	@Column(name="ssn")
 	private long ssn;
 	@Column(name="user_name")
-
 	private String userName;
 	@NotBlank(message = "FULLNAME CANNOT BE EMPTY!")
 	@Column(name="full_name")
@@ -48,7 +46,6 @@ public class Customer {
 		super();
 		this.id = id;
 		this.ssn = ssn;
-
 		this.userName = userName;
 		this.fullName = fullName;
 		this.password = password;

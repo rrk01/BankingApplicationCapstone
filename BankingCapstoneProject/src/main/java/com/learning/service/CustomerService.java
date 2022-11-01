@@ -81,4 +81,4 @@ public class CustomerService {
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);
 	}
-}
+} 

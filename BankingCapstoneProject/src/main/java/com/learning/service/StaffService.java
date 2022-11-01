@@ -14,9 +14,9 @@ public class StaffService {
 	@Autowired
 	StaffRepo staffRepo;
 	
-//	public Staff createStaffMember(Staff staff) {
-//		return staffRepo.save(staff);
-//	}
+	public Staff createStaffMember(Staff staff) {
+		return staffRepo.save(staff);
+	}
 	
 	public List<Beneficiary> getAllBeneficiary() {
 		return staffRepo.getAllBeneficiary(); 

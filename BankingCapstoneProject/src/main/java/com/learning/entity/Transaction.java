@@ -50,8 +50,8 @@ public class Transaction {
 	public void setT_date(Date t_date) {
 		this.t_date = t_date;
 	}
-	public Enum getCredit_debit() {
-		return credit_debit;
+	public CardType getCredit_debit() {
+		return credit_debit; 
 	}
 	public void setCredit_debit(CardType credit_debit) {
 		this.credit_debit = credit_debit;

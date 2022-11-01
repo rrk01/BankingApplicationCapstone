@@ -12,7 +12,7 @@ import com.learning.entity.Staff;
 
 @Repository
 public interface StaffRepo extends JpaRepository<Staff,String> {
-	@Modifying
+	
 	@Query(value="Select accountNumber AS 'fromCustomer', beneficiaryAcNo, beneficiaryAddedDate, approved from Beneficiary where approved='No'", nativeQuery=true)
 	public List<Beneficiary> getAllBeneficiary(); //
 }

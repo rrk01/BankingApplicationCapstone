@@ -79,4 +79,4 @@ public class Beneficiary {
 	public void setBeneficiaryAddedDate(Date beneficiaryAddedDate) {
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
 	}
-}
+} 
