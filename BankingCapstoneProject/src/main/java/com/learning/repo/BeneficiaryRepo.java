@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.learning.entity.Beneficiary;
+
 /**
  * @author Greg N.
  * @date :
@@ -19,7 +21,7 @@ import org.springframework.stereotype.Repository;
 public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Long>{
 	
 	@Query(value="select * From beneficiary where account_number = :acctID", nativeQuery= true)
-	public List<Beneficiary> getgetBeneficiaryForAccount(@Param("acctID") long accountID);
+	public List<Beneficiary> getBeneficiaryForAccount(@Param("acctID") long accountID);
 	
 	@Query(value="delete from beneficiary where customer_id = :custID and id = :beneficiaryID")
 	public String deleteCustomersBeneficiary(@Param("beneficiaryID") long benficiaryID ,@Param("custID") long custID);

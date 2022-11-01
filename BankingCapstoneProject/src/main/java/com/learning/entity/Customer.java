@@ -119,15 +119,5 @@ public class Customer {
 
 	public void setSecretAnswer(String secretAnswer) {
 		this.secretAnswer = secretAnswer;
-	}
-
-	public int getSSN() {
-		return SSN;
-	}
-
-	public void setSSN(int sSN) {
-		SSN = sSN;
-	}
-
-	
+	}	
 }

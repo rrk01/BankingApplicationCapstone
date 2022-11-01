@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learning.entity.Account;
+import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.repo.CustomerRepo;
 import com.learning.service.CustomerService;
@@ -51,11 +52,7 @@ public class CustomerController {
 	public Customer updateCustomer(@Valid @RequestBody Customer customer, @PathVariable("id") long id) {
 		return customerService.updateCustomer(customer,id);
 	}
-<<<<<<< HEAD
-	
-	
-	
-=======
+
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
 		return customerService.findCustomerAccount(acctID);////////////////////////////////////// should acct have transaction column?acct approved /// beneficiary table? p.6 status /// 
@@ -63,31 +60,16 @@ public class CustomerController {
 		//staff table enum disable enable
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@PostMapping("/{custID}/beneficiary")
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
 		return customerService.addBeneficiary(beneficiary,custID);
 	}
 	@GetMapping("/{custID}/beneficiary")
 	public List<Beneficiary> getBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
-		return customerService.getBeneficiary(beneficiary, custID)
+		return customerService.getBeneficiary(beneficiary, custID);
 	}
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
-
->>>>>>> c0e3a2daae90e28525f250d09655690d0336fc70
 }
