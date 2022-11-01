@@ -22,8 +22,7 @@ public class Account {
 	private long accountNumber;
 	private accounttype accountType;
 	private float accountBalance;
-	private String approved; ///////////////// no by default
-	/////acct status enum enabled disabled p3-4
+	private boolean approved; //////////
 	private Date dateOfCreation;
 	private long customerId;
 
@@ -54,6 +53,7 @@ public class Account {
 	public void setAccountBalance(float accountBalance) {
 		this.accountBalance = accountBalance;
 	}
+  
 	public boolean getApproved() {
 		return approved;
 	}
