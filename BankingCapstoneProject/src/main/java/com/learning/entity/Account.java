@@ -42,11 +42,12 @@ public class Account {
 		super();
 	}
 
-	public Account(AccountType accountType, BigDecimal accountBalance, boolean approved, long accountNumber,
+	public Account(AccountType accountType, AccountStatus accountStatus,BigDecimal accountBalance, boolean approved, long accountNumber,
 			Date dateOfCreation, long customerId) {
 
 		super();
 		this.accountType = accountType;
+		this.accountStatus=accountStatus;
 		this.accountBalance = accountBalance;
 		this.approved = approved;
 		this.accountNumber = accountNumber;
@@ -61,7 +62,13 @@ public class Account {
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
+	public AccountStatus getAccountStatus() {
+		return accountStatus;
+	}
 
+	public void setAccountStatus(AccountStatus accountStatus) {
+		this.accountStatus = accountStatus;
+	}
 	public BigDecimal getAccountBalance() {
 		return accountBalance;
 	}

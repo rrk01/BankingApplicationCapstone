@@ -48,9 +48,6 @@ public class CustomerService {
 	public List<Account> findAllCustomerAccount(long accountNumber) {
 		return accountRepo.findAll();
 	}
-	public List<Customer> findAllCustomers() {
-		return customerRepo.findAll();
-	}
 	public Customer findCustomerById(long id) {
 		Optional<Customer> CustomerObject=customerRepo.findById(id);
 		return CustomerObject.get();
@@ -90,4 +87,5 @@ public class CustomerService {
 	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);
 	}
+	
 }

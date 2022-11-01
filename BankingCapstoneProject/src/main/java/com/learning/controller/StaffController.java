@@ -1,5 +1,8 @@
 package com.learning.controller;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.learning.entity.Account;
+import com.learning.entity.AccountStatus;
+import com.learning.entity.AccountType;
+import com.learning.entity.Beneficiary;
 import com.learning.repo.AccountRepo;
 import com.learning.service.CustomerService;
 
@@ -19,6 +26,8 @@ import com.learning.service.CustomerService;
 public class StaffController {
 	@Autowired
 	CustomerService customerService;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PutMapping("/{id}/account/{accountNumber}")
 	public Account approveAccount(@PathVariable long id, @PathVariable long accountNumber) {
 		Account account=customerService.findCustomerAccount(accountNumber);
@@ -26,11 +35,20 @@ public class StaffController {
 			account.setApproved(true);
 		}
 		customerService.saveApproval(account);
-		return account;
+		return new Account(null, null,BigDecimal.ZERO, account.isApproved(), account.getAccountNumber(),
+				null, 0);
 	}
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@GetMapping("/{customerId}/acocunt")
 	public List<Account> getAllAccounts(@PathVariable long customerId){
-		return customerService.findAllCustomerAccount(customerId);
+		List<Account> accountsList=customerService.findAllCustomerAccount(customerId);
+		List<Account> accountsreturnlist=new ArrayList<>();
+		for(int i=0;i<accountsList.size();i++) {
+			accountsreturnlist.add(new Account(accountsList.get(i).getAccountType(), accountsList.get(i).getAccountStatus(),
+					accountsList.get(i).getAccountBalance(), false, accountsList.get(i).getAccountNumber(), null, 0));
+		}
+		return accountsreturnlist;
 	}
 
 }

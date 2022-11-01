@@ -21,10 +21,14 @@ public class StaffService {
 	public List<Staff> listAllStaffMembers() {
 		return staffRepo.findAll();
 	}
-	public Staff disableStaffMember(String username) {
+	public Staff enableOrDisableStaffMember(String username) {
 		Staff staffObject=staffRepo.findById(username).get();
-		staffObject.setStatus(StaffStatus.DISABLED);
+		if(staffObject.getStatus()==StaffStatus.ENABLED) {
+			staffObject.setStatus(StaffStatus.DISABLED);
+		}else if(staffObject.getStatus()==StaffStatus.DISABLED) {
+			staffObject.setStatus(StaffStatus.ENABLED);
+		}
 		staffRepo.save(staffObject);
-		return staffObject;
+		return new Staff(staffObject.getId(), null, null, null, staffObject.getStatus()) ;
 	}
 }
