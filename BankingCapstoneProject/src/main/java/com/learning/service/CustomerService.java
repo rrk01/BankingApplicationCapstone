@@ -19,7 +19,7 @@ import com.learning.entity.Customer;
 import com.learning.repo.AccountRepo;
 import com.learning.repo.BeneficiaryRepo;
 import com.learning.repo.CustomerRepo;
-
+import com.learning.entity.Beneficiary;
 @Service
 public class CustomerService {
 	@Autowired
@@ -27,6 +27,9 @@ public class CustomerService {
 	@Autowired
 	private BeneficiaryRepo beneficiaryRepo;
 	@Autowired
+	private BeneficiaryRepo beneficiaryRepo; //
+	private List<Beneficiary> beneficiaryList = new ArrayList<Beneficiary>();
+  @Autowired
 	private AccountRepo accountRepo;
 	
 	List<Beneficiary> beneficiariesList=new ArrayList<>();
@@ -49,7 +52,6 @@ public class CustomerService {
 	}
 	public Customer updateCustomer(Customer cust, long id) {
 		Customer customer= customerRepo.getById(id);
-		
 		customer.setId(cust.getId());
 		customer.setFullName(cust.getFullName());
 		customer.setPassword(cust.getPassword());
@@ -60,10 +62,12 @@ public class CustomerService {
 		
 		return customerRepo.save(customer);
 	}
+  
 	public Beneficiary addBeneficiary(Beneficiary beneficiary, long custID) {
-		//beneficiary.setStatus();
+		beneficiary.setApproved(false);
 		return beneficiaryRepo.save(beneficiary);
 	}
+
 	public List<Beneficiary> getBeneficiary(Beneficiary beneficiary, long custID) {
 		beneficiariesList.clear();
 		List<Beneficiary> beneficiaries=beneficiaryRepo.findAll();
@@ -77,7 +81,8 @@ public class CustomerService {
 		}
 		return beneficiariesList;
 	}
-	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+  
+	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);
 	}
 }

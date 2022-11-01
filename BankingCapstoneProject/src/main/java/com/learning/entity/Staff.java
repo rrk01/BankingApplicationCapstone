@@ -1,19 +1,22 @@
 package com.learning.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.Id;
 @Entity
 @Table
-public class Staff {
+public class Staff {///
 	private String firstName;
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String userName;
 	private String password;
+	
 	public Staff() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Staff(String firstName, String userName, String password) {
 		super();
