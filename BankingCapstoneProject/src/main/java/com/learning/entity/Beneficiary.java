@@ -18,7 +18,8 @@ public class Beneficiary {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private long beneficiaryAcNo;
-	private long accountNumber; // CustomerId 
+	private long accountNumber;
+	private long customerId;
 	private accounttype accountType; // SB OR CA
 	private String beneficiaryName; // bene Name
 	private Boolean approved; // false as Default
@@ -28,11 +29,12 @@ public class Beneficiary {
 		super();
 	}
 
-	public Beneficiary(long beneficiaryAcNo, long accountNumber, accounttype accountType, String beneficiaryName,
+	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, accounttype accountType, String beneficiaryName,
 			Boolean approved, Date beneficiaryAddedDate) {
 		super();
 		this.beneficiaryAcNo = beneficiaryAcNo;
 		this.accountNumber = accountNumber;
+		this.customerId = customerID;
 		this.accountType = accountType;
 		this.beneficiaryName = beneficiaryName;
 		this.approved = approved;
@@ -85,6 +87,14 @@ public class Beneficiary {
 
 	public void setBeneficiaryAddedDate(Date beneficiaryAddedDate) {
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
+	}
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 	
 	

@@ -41,12 +41,17 @@ public class CustomerService {
 	public Account saveApproval(Account account) {
 		return accountRepo.save(account);
 	}
-	public Account findCustomerAccount(long accountNumber) {
-		Optional<Account> accountObject=accountRepo.findById(accountNumber);
-		return accountObject.get();
+	public Account findCustomerAccount(long custId, long accountNumber) {
+		Account account = null;
+		for(Account acct : findAllCustomerAccount(custId)) { // makes sure that the customer is the owner of the searched account
+			if(acct.getAccountNumber()==accountNumber) {
+				account=acct;
+			}
+		}
+		return account;
 	}
-	public List<Account> findAllCustomerAccount(long accountNumber) {
-		return accountRepo.findAll();
+	public List<Account> findAllCustomerAccount(long custID) {
+		return accountRepo.findAll().stream().filter(a -> a.getCustomerId() == custID).collect(Collectors.toList());
 	}
 	public List<Customer> findAllCustomers() {
 		return customerRepo.findAll();
@@ -86,8 +91,18 @@ public class CustomerService {
 		}
 		return beneficiariesList;
 	}
-  
-	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
-		return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);
+
+	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+		//return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);//////// OVERKILL
+		try {
+			if(beneficiaryRepo.getById(beneficiaryID).getCustomerId()==custID) {
+				beneficiaryRepo.deleteById(beneficiaryID);
+				return "BENEFICIARY DELETED";
+			} else {
+				return "BENEFICIARY NOT DELETED";
+			}
+		}catch(Exception e) {
+			return "BENEFICIARY NOT DELETED";
+		}
 	}
 }

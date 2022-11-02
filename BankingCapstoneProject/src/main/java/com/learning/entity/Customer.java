@@ -24,8 +24,10 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@NotBlank(message = "SSN CANNOT BE BLANK")
-	@Size(min = 9, max = 9)
+
+	//@NotBlank(message = "SSN CANNOT BE BLANK") /////////////////////////////////unknown errors when register method is invoked
+	//@Size(min = 9, max = 9) @size can only be used on string or collection ect.
+
 	@Column(name="ssn")
 	private long ssn;
 	@Column(name="user_name")
@@ -69,15 +71,7 @@ public class Customer {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public long getSsn() {
-		return ssn;
-	}
-
-	public void setSsn(long ssn) {
-		this.ssn = ssn;
-	}
-
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -124,6 +118,14 @@ public class Customer {
 
 	public void setSecretAnswer(String secretAnswer) {
 		this.secretAnswer = secretAnswer;
+	}
+
+	public long getSSN() {
+		return this.ssn;
+	}
+
+	public void setSSN(int sSN) {
+		this.ssn = sSN;
 	}
 
 	

@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Table(name="ACCOUNTS")
 public class Account {
 
+
+
 /*
  * accountType: enum (SAVINGS/CHECKING),
  * accountStatus: enum (ENABLED, DISABLED),
@@ -27,6 +29,7 @@ public class Account {
 
   @Column(name="approved")
 	private boolean approved;
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long accountNumber;
