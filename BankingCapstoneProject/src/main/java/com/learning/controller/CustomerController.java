@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 import com.learning.entity.Account;
 import com.learning.entity.AccountType;
 import com.learning.entity.Beneficiary;
@@ -45,7 +47,7 @@ public class CustomerController {
 	@PostMapping("/register")
 	public Customer registerCustomer(@RequestBody Customer customer) {
 		 customerService.registerCustomer(customer);
-		 return new Customer(customer.getId(), 0, customer.getUserName(), customer.getFullName(), customer.getPassword(), null,null, null);
+		 return new Customer(customer.getId(), 0, customer.getUserName(), customer.getFullName(), customer.getPassword(), null,null, null, null);
 	}
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/{id}/account")
@@ -60,7 +62,7 @@ public class CustomerController {
 	@GetMapping("/{id}")
 	public Customer getCustomer(@Valid @PathVariable("id") long id) {
 		Customer customer=customerService.findCustomerById(id);
-		return new Customer(0, customer.getSSN(), customer.getUserName(), customer.getFullName(), null, customer.getPhone(),null, null);
+		return new Customer(0, customer.getSSN(), customer.getUserName(), customer.getFullName(), null, customer.getPhone(),null, null,null);
 	}
 	
 	
@@ -70,7 +72,7 @@ public class CustomerController {
 		customerService.updateCustomer(customer,id);
 		Customer updatedcustomer=customerService.findCustomerById(id);
 		return new Customer(updatedcustomer.getId(), customer.getSSN(), null, customer.getFullName(), null, customer.getPhone()
-				,updatedcustomer.getSecretQuestion(), updatedcustomer.getSecretAnswer());
+				,updatedcustomer.getSecretQuestion(), updatedcustomer.getSecretAnswer(), null);
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
