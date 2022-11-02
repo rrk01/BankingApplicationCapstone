@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.learning.repo;
 
 import java.util.List;
@@ -20,7 +17,8 @@ import com.learning.entity.Beneficiary;
  * @date :
  * 
  */
-@Transactional
+
+//@Transactional
 @Repository
 public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Long>{
 	

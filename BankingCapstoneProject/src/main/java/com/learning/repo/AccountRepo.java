@@ -18,4 +18,5 @@ public interface AccountRepo extends JpaRepository<Account,Long> {
 
 	@Query(value="Select * FROM accounts where customer_id = :custID and approved=true", nativeQuery= true)
 	public List<Account> getValidAccounts(@Param(value="custID") long id);
+
 }
