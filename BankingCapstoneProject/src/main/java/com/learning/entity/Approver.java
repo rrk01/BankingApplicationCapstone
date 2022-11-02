@@ -1,14 +1,14 @@
 package com.learning.entity;
 
-public class Admin {
+public class Approver {
 	private String userName;
 	private String passWord;
 	private String fullName;
-	public Admin() {
+	public Approver() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Admin(String userName, String passWord, String fullName) {
+	public Approver(String userName, String passWord, String fullName) {
 		super();
 		this.userName = userName;
 		this.passWord = passWord;
