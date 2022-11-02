@@ -8,13 +8,12 @@ import javax.persistence.Table;
 import org.springframework.data.annotation.Id;
 
 
-enum status{
-	ENABLE,DISABLE
-}
-
 @Entity
 @Table
 public class Staff {
+	public enum status {
+		ENABLE,DISABLE
+	}
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
@@ -28,7 +27,6 @@ public class Staff {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
 
 	public Staff(long id, String name, String userName, String password, status status) {
 		super();

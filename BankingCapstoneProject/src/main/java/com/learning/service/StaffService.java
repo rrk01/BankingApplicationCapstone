@@ -10,6 +10,7 @@ import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.Staff;
+import com.learning.entity.status;
 import com.learning.repo.StaffRepo;
 
 @Service
@@ -48,5 +49,16 @@ public class StaffService {
 	public Customer getCustomerById(long customerId) {
 		return staffRepo.getCustomerById(customerId);
 	}
+	
+	public Staff enableOrDisableStaffMember(logn customerId) {
+        Staff staffObject=staffRepo.findById(username).get();
+        if(staffObject.getStatus()==status.ENABLE) {
+            staffObject.setStatus(status.DISABLE);
+        }else if(staffObject.getStatus()==status.DISABLE) {
+            staffObject.setStatus(status.ENABLE);
+        }
+        staffRepo.save(staffObject);
+        return new Staff(staffObject.getId(), null, null, null, staffObject.getStatus()) ;
+    }
 	
 }
