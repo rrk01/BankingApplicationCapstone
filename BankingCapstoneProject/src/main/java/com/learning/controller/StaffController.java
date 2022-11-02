@@ -32,7 +32,7 @@ public class StaffController {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PutMapping("/{cid}/account/{accountNumber}")
 	public Account approveAccount(@PathVariable long cid, @PathVariable long accountNumber) {
-		Account account=customerService.findCustomerAccount(accountNumber);
+		Account account=customerService.findCustomerAccount(cid, accountNumber);
 
 		if(cid==account.getCustomerId()) {
 			account.setApproved(true);

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="approvers")
@@ -30,7 +32,7 @@ public class Approver {
 		super();
 		this.id = id;
 		this.fullName = fullName;
-    this.password = password;
+		this.passWord = password;
 	}
 
 	public long getId() {
@@ -53,10 +55,12 @@ public class Approver {
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
 	}
-  
-  @Override
+
+	@Override
 	public String toString() {
-		return "Admin ["fullName=" + fullName +  ", passWord=" + passWord]";
+		return "Approver [id=" + id + ", fullName=" + fullName + ", passWord=" + passWord + "]";
 	}
+  
+	
 	
 }
