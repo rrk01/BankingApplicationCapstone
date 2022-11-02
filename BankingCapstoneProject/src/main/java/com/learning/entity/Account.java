@@ -14,10 +14,6 @@ enum accounttype{
 @Table(name="accounts")
 public class Account {
 
-	private accounttype accountType;
-	private float accountBalance;
-	private boolean approved;
-
 	@Id
 	private long accountNumber;
 	private accounttype accountType;

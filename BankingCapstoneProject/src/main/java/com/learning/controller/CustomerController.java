@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.learning.entity.Customer;
 import com.learning.repo.CustomerRepo;
 import com.learning.service.CustomerService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
@@ -54,7 +56,7 @@ public class CustomerController {
 	}
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
-		return customerService.findCustomerAccount(acctID);
+		return customerService.findCustomerAccount(custID,acctID);
 	}
 	@PostMapping("/{custID}/beneficiary")
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
@@ -65,7 +67,7 @@ public class CustomerController {
 		return customerService.getBeneficiary(custID);
 	}
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
-	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
 

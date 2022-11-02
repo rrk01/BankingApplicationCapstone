@@ -1,15 +1,18 @@
 package com.learning.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.Id;
+
+
 @Entity
 @Table
 public class Staff {
-	private String firstName;
+	
 	@Id
 	private String userName;
+	private String firstName;
 	private String password;
 	public Staff() {
 		super();
