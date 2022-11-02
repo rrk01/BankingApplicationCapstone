@@ -9,20 +9,22 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import com.learning.entity.Account;
 
-enum accounttype{
-	SB,CA
-}
+
 @Entity
 @Table
 public class Beneficiary {
+	public enum accounttype{
+		SB,CA
+	}
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private long beneficiaryAcNo;
-	private long accountNumber; 
-	private long customerId;
+	private long beneficiaryAcNo; // Id in the table
+	private long accountNumber; // Links to the ACCOUNT ENTITY
+	private long customerId; // LINKS TO THE CUSTOMER ENTITY
 	private accounttype accountType; // SB OR CA
 	private String beneficiaryName; // bene Name
-	private Boolean approved; // false as Default
+	private boolean approved; // false as Default (Done by Staff)
+	private boolean active; // (Yes/No) (Done by Customer)
 	private Date beneficiaryAddedDate;
 	
 	public Beneficiary() {
@@ -30,7 +32,7 @@ public class Beneficiary {
 	}
 
 	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, accounttype accountType, String beneficiaryName,
-			Boolean approved, Date beneficiaryAddedDate) {
+			boolean approved, boolean active, Date beneficiaryAddedDate) {
 		super();
 		this.beneficiaryAcNo = beneficiaryAcNo;
 		this.accountNumber = accountNumber;
@@ -95,6 +97,14 @@ public class Beneficiary {
 
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 	

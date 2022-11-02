@@ -77,9 +77,9 @@ public class CustomerService {
 	}
 	public List<Beneficiary> getBeneficiary(long custID) {
 		beneficiaryList.clear();
-		List<Account> validAccounts=accountRepo.getValidAccounts(custID);
-		for(Account acct: validAccounts) {
-			beneficiaryList.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber()));
+		List<Account> validAccounts=accountRepo.getValidAccounts(custID); // CHECK IF ITS ACTIVE (approved)
+		for(Account acct: validAccounts) { // Iterated accounts
+			beneficiaryList.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber())); // GET ALL beneficiary based off accNum
 		}
 		return beneficiaryList;
 	}

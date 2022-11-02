@@ -41,7 +41,7 @@ public class CustomerController {
 	
 	@GetMapping("/{id}")
 	public List<Object> getCustomer(@Valid @PathVariable("id") long id) {
-		return customerService.getCustomer(id); 
+		return customerService.getCustomer(id);
 	}
 	
 	@GetMapping("/getcustomer")
@@ -54,7 +54,7 @@ public class CustomerController {
 	}
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
-		return customerService.findCustomerAccount(acctID);
+		return customerService.findCustomerAccount(custID,acctID);
 	}
 	@PostMapping("/{custID}/beneficiary")
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
@@ -65,8 +65,7 @@ public class CustomerController {
 		return customerService.getBeneficiary(custID);
 	}
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
-	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
-
 }

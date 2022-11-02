@@ -43,16 +43,16 @@ public class StaffController {
 	@Autowired
 	CustomerService customerService;
 	
-	@PutMapping("/{id}/account/{accountNumber}")
-	public Account approveAccount(@PathVariable long id, @PathVariable long accountNumber) {
-		Account account=customerService.findCustomerAccount(accountNumber);
+	@PutMapping("/{custId}/account/{accountNumber}")
+	public Account approveAccount(@PathVariable("custId") long id, @PathVariable("accountNumber") long accountNumber) {
+		Account account=customerService.findCustomerAccount(id, accountNumber);
 		if(id==account.getCustomerId()) {
 			account.setApproved(true);
 		}
 		customerService.saveApproval(account);
 		return account;
 	}
-	@GetMapping("/{customerId}/acocunt")
+	@GetMapping("/{customerId}/account")
 	public List<Account> getAllAccounts(@PathVariable long customerId){
 		return customerService.findAllCustomerAccount(customerId);
 	}
