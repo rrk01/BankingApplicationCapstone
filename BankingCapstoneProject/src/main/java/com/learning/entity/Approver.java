@@ -13,6 +13,8 @@ public class Approver {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@NotNull
+	@Size(min=5, max=255)
 	@Column(name="name")
 	private String name;
 	
