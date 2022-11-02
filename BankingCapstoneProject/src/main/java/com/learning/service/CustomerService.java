@@ -53,9 +53,6 @@ public class CustomerService {
 	public List<Account> findAllCustomerAccount(long custID) {
 		return accountRepo.findAll().stream().filter(a -> a.getCustomerId() == custID).collect(Collectors.toList());
 	}
-	public List<Customer> findAllCustomers() {
-		return customerRepo.findAll();
-	}
 	public Customer findCustomerById(long id) {
 		Optional<Customer> CustomerObject=customerRepo.findById(id);
 		return CustomerObject.get();
@@ -105,4 +102,5 @@ public class CustomerService {
 			return "BENEFICIARY NOT DELETED";
 		}
 	}
+	
 }

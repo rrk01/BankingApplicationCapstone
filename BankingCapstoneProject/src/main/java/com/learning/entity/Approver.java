@@ -12,22 +12,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name="approvers")
 public class Approver {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotNull
 	@Size(min=5, max=255)
-	@Column(name="name")
-	private String name;
-	
+	@Column(name="fullName")
+	private String fullName;
+  private String passWord;
+
 	public Approver() {
 		super();
 	}
 
-	public Approver(long id, String name) {
+	public Approver(long id, String fullName, String password) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.fullName = fullName;
+    this.password = password;
 	}
 
 	public long getId() {
@@ -38,12 +41,22 @@ public class Approver {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
 	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+  public String getPassWord() {
+		return passWord;
+	}
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+  
+  @Override
+	public String toString() {
+		return "Admin ["fullName=" + fullName +  ", passWord=" + passWord]";
 	}
 	
 }
