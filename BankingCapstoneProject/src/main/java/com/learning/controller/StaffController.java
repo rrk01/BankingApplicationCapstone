@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,6 +22,7 @@ import com.learning.entity.Beneficiary;
 import com.learning.repo.AccountRepo;
 import com.learning.service.CustomerService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/customer")
 public class StaffController {
@@ -28,10 +30,11 @@ public class StaffController {
 	CustomerService customerService;
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	@PutMapping("/{id}/account/{accountNumber}")
-	public Account approveAccount(@PathVariable long id, @PathVariable long accountNumber) {
+	@PutMapping("/{cid}/account/{accountNumber}")
+	public Account approveAccount(@PathVariable long cid, @PathVariable long accountNumber) {
 		Account account=customerService.findCustomerAccount(accountNumber);
-		if(id==account.getCustomerId()) {
+
+		if(cid==account.getCustomerId()) {
 			account.setApproved(true);
 		}
 		customerService.saveApproval(account);
@@ -40,7 +43,8 @@ public class StaffController {
 	}
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
-	@GetMapping("/{customerId}/acocunt")
+	@GetMapping("/{customerId}/account")
+
 	public List<Account> getAllAccounts(@PathVariable long customerId){
 		List<Account> accountsList=customerService.findAllCustomerAccount(customerId);
 		List<Account> accountsreturnlist=new ArrayList<>();

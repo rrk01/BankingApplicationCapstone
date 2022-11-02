@@ -1,41 +1,62 @@
 package com.learning.entity;
+/*
+ * @author Dick
+ */
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name="approvers")
 public class Approver {
-	private String userName;
-	private String passWord;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	@NotNull
+	@Size(min=5, max=255)
+	@Column(name="fullName")
 	private String fullName;
+  private String passWord;
+
 	public Approver() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public Approver(String userName, String passWord, String fullName) {
+
+	public Approver(long id, String fullName, String password) {
 		super();
-		this.userName = userName;
-		this.passWord = passWord;
+		this.id = id;
 		this.fullName = fullName;
+    this.password = password;
 	}
-	public String getUserName() {
-		return userName;
+
+	public long getId() {
+		return id;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+
+	public void setId(long id) {
+		this.id = id;
 	}
-	public String getPassWord() {
-		return passWord;
-	}
-	public void setPassWord(String passWord) {
-		this.passWord = passWord;
-	}
+
 	public String getFullName() {
 		return fullName;
 	}
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
-	@Override
-	public String toString() {
-		return "Admin [userName=" + userName + ", passWord=" + passWord + ", fullName=" + fullName + "]";
+  public String getPassWord() {
+		return passWord;
 	}
-	
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
+	}
+  
+  @Override
+	public String toString() {
+		return "Admin ["fullName=" + fullName +  ", passWord=" + passWord]";
+	}
 	
 }

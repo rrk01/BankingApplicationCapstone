@@ -15,6 +15,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,6 +34,7 @@ import com.learning.entity.Beneficiary.accounttype;
 import com.learning.repo.CustomerRepo;
 import com.learning.service.CustomerService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("api/customer")
 public class CustomerController {
@@ -74,10 +76,12 @@ public class CustomerController {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
+
 		/*accountNumber: Integer, accountType:Enum(SB/CA), accountBalance:Number, accountStatus:Enum(Enable/Disable)*/
 		Account account=customerService.findCustomerAccount(acctID);
 		return new Account(account.getAccountType(), account.getAccountStatus() ,account.getAccountBalance(), account.isApproved(), account.getAccountNumber(),
 				null, 0);
+
 	}
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
@@ -102,7 +106,7 @@ public class CustomerController {
 
 	}
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
-	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
 
