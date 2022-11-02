@@ -27,7 +27,7 @@ public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Long> {
 	public List<Beneficiary> getBeneficiaryForAccount(@Param("acctID") long accountID);
 	
 	@Modifying
-	@Query(value="delete from beneficiary where customer_id = :custID and id = :beneficiaryID")
-	public String deleteCustomersBeneficiary(@Param("beneficiaryID") long benficiaryID ,@Param("custID") long custID);
+	@Query(value="delete from beneficiary where customer_id = :custID and beneficiary_ac_no = :beneficiaryID", nativeQuery= true)
+	public int deleteCustomersBeneficiary(@Param("beneficiaryID") long benficiaryID ,@Param("custID") long custID);
 
 }

@@ -6,38 +6,30 @@ import java.sql.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="ACCOUNTS")
+@Table(name = "ACCOUNTS")
 public class Account {
-
-/*
- * accountType: enum (SAVINGS/CHECKING),
- * accountStatus: enum (ENABLED, DISABLED),
- * accountBalance: Number,
- * approved: no,
- * accountNumber: Number,
- * dateOfCreation: date/time,
- * customerId: Number
- */
-	@Column(name="account_type")
-	private AccountType accountType;
-	@Column(name="account_status")
-	private AccountStatus accountStatus;
-	@Column(name="account_balance")
-	private BigDecimal accountBalance;
-
-  @Column(name="approved")
-	private boolean approved;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long accountNumber;
-
-
-  
-  @Column(name="creation_date")
-	private Date dateOfCreation;
-	@Column(name="customer_id")
-	private long customerId;
+	/*
+	 * accountType: enum (SAVINGS/CHECKING), accountStatus: enum (ENABLED,
+	 * DISABLED), accountBalance: Number, approved: no, accountNumber: Number,
+	 * dateOfCreation: date/time, customerId: Number
+	 */
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long accountNumber;
+	@Column(name = "customer_id")
+	private long customerId;
+	@Column(name = "account_type")
+	private AccountType accountType;
+	@Column(name = "account_status")
+	private AccountStatus accountStatus;
+	@Column(name = "account_balance")
+	private BigDecimal accountBalance;
+	@Column(name = "approved")
+	private boolean approved;
+	@Column(name = "creation_date")
+	private Date dateOfCreation;
+
 	public Account() {
 		super();
 	}
@@ -101,6 +93,5 @@ public class Account {
 	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
-	
-	
+
 }

@@ -12,6 +12,15 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "customers")
 public class Customer {
+	/*
+	 * id: Number,
+	 * username:String, UNIQUE 
+	 * fullname:String,
+	 * phone: String,
+	 * SSN: int,
+	 * password: String 
+	 * role: enum RoleType (CUSTOMER, STAFF, ADMIN)
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -33,7 +42,6 @@ public class Customer {
 	private String secretQuestion;
 	@Column(name="secret_answer")
 	private String secretAnswer;
-
 	
 	public Customer() {
 		super();
@@ -116,5 +124,7 @@ public class Customer {
 
 	public void setSecretAnswer(String secretAnswer) {
 		this.secretAnswer = secretAnswer;
-	}	
+	}
+
+	
 }

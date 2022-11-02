@@ -38,13 +38,13 @@ public class CustomerController {
 	public Account createCustomerAccount(@Valid @PathVariable("id") long id,@RequestBody Account account) {
 		return customerService.createCustomerAccount(id, account);
 	}
-	/*
+	
 	@GetMapping("/{id}")
 	public List<Object> getCustomer(@Valid @PathVariable("id") long id) {
-		return customerService.getCustomer(id);
+		return customerService.getCustomer(id); 
 	}
-	*/
-	@GetMapping("/getCustomer")
+	
+	@GetMapping("/getcustomer")
 	public List<Customer> getCustomers() {
 		return customerService.getCustomers();
 	}
@@ -52,24 +52,21 @@ public class CustomerController {
 	public Customer updateCustomer(@Valid @RequestBody Customer customer, @PathVariable("id") long id) {
 		return customerService.updateCustomer(customer,id);
 	}
-
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
-		return customerService.findCustomerAccount(acctID);////////////////////////////////////// should acct have transaction column?acct approved /// beneficiary table? p.6 status /// 
-		/// transactions table? enum cr/db p.7//
-		//staff table enum disable enable
+		return customerService.findCustomerAccount(acctID);
 	}
-	
 	@PostMapping("/{custID}/beneficiary")
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
 		return customerService.addBeneficiary(beneficiary,custID);
 	}
 	@GetMapping("/{custID}/beneficiary")
-	public List<Beneficiary> getBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
-		return customerService.getBeneficiary(beneficiary, custID);
+	public List<Beneficiary> getBeneficiary(@Valid @PathVariable("custID") long custID) {
+		return customerService.getBeneficiary(custID);
 	}
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
-	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
+	public int deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
+
 }

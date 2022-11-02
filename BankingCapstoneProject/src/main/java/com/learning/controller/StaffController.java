@@ -14,10 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
+import com.learning.entity.Customer;
+import com.learning.entity.Staff;
 import com.learning.repo.AccountRepo;
 import com.learning.repo.BeneficiaryRepo;
+import com.learning.repo.CustomerRepo;
+import com.learning.repo.StaffRepo;
 import com.learning.service.CustomerService;
 import com.learning.service.StaffService;
+
+enum status {
+	ENABLE,DISABLE
+}
 
 @RestController
 @RequestMapping("/api/staff")
@@ -28,9 +36,13 @@ public class StaffController {
 	
 	@Autowired
 	BeneficiaryRepo beneficiaryRepo;
-	
+	@Autowired
+	StaffRepo staffRepo;
+	@Autowired
+	CustomerRepo customerRepo;
 	@Autowired
 	CustomerService customerService;
+	
 	@PutMapping("/{id}/account/{accountNumber}")
 	public Account approveAccount(@PathVariable long id, @PathVariable long accountNumber) {
 		Account account=customerService.findCustomerAccount(accountNumber);
@@ -45,21 +57,65 @@ public class StaffController {
 		return customerService.findAllCustomerAccount(customerId);
 	}
 	
-	@GetMapping("/beneficiary")
+	@GetMapping("/account/:accountNumber") // GET the statement of particular account
+	public Account getParticularAccount(@PathVariable("accountNumber") long acountNumber) {
+		return staffService.getParticularAccount();
+	}
+	
+	@GetMapping("/beneficiary") // GETS beneficiary that need to be approved
 	public List<Beneficiary> getAllBeneficiary() {
 		return staffService.getAllBeneficiary(); 
 	}
 	
-	@PutMapping("/beneficiary/{customerId}")
+//	------------------------------------------------------------------------------------------
+	// TEST CALL
+	@GetMapping("/beneficiaryApproved") // GETS beneficiary that need to be approved (TESTING PURPOSE TO SEE IF they got approved)
+	public List<Beneficiary> getAllBeneficiaryApproved() {
+		return staffService.getAllBeneficiaryApproved(); 
+	}
+	
+	@PutMapping("/beneficiary/{customerId}") // APPROVES THE BENE Which were added by Customer
 	public ResponseEntity<Beneficiary> updateBeneficiary(@PathVariable("customerId") long customerId, @RequestBody Beneficiary beneficiaryDetails) {
 		Beneficiary updateBeneficiary = beneficiaryRepo.findById(customerId).orElseThrow(() -> 
 		new RuntimeException("Beneficiary Not exisit with id: " + customerId)); 
-		
 		updateBeneficiary.setApproved(true);
-		
 		beneficiaryRepo.save(updateBeneficiary);
-		
 		return ResponseEntity.ok(updateBeneficiary); 
 	}
+//	------------------------------------------------------------------------------------------
+	@GetMapping("/accounts/approved")
+	public List<Account> getAccountsNotApproved() {
+		return staffService.getAccountsNotApproved();
+	}
+	
+	@PutMapping("/accounts/approved")
+	Account updateAccount(@RequestBody Account accountDetails) {
+		return staffRepo.save(accountDetails);
+	}
+	
+	@GetMapping("/customer")
+	public List<Customer> getCustomer(){
+		return staffService.getCustomer();
+	}
+	
+	@PutMapping("/customer/{customerId}")
+	public ResponseEntity<Customer> updateCustomer(@PathVariable("customerId") long customerId, @RequestBody Customer customerDetails) {
+		Customer updateCustomer = customerRepo.findById(customerId).orElseThrow(() -> 
+		new RuntimeException("Customer Not exisit with id: " + customerId)); 
+		
+//		Staff staff = new Staff();
+//		updateCustomer
+	
+//		staffRepo.save(updateCustomer);
+		return ResponseEntity.ok(updateCustomer); 
+	}
+	
+	@GetMapping("/customer/{customerId}")
+	public Customer getCustomerById(@PathVariable("customerId") long customerId) {
+		return staffService.getCustomerById(customerId);
+	}
+	
+//	@PutMapping("/transfer")
+//	public 
 	
 }
