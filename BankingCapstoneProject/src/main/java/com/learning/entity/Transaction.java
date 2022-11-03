@@ -2,16 +2,22 @@ package com.learning.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 enum CardType{
 	CREDIT,DEBIT
 }
+@Entity 
 public class Transaction {
+	@Id
 	Long t_id;
+	Long account_number; // This connects it to the Account. 
 	String t_reason ;// WHAT IS TRANSACTION NAME? CHANGE TO REASON?
 	BigDecimal t_amount;
 	Date t_date;
 	CardType credit_debit;
-	Long account_number;
+	
 	public Transaction() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -50,7 +56,7 @@ public class Transaction {
 	public void setT_date(Date t_date) {
 		this.t_date = t_date;
 	}
-	public Enum getCredit_debit() {
+	public CardType getCredit_debit() {
 		return credit_debit;
 	}
 	public void setCredit_debit(CardType credit_debit) {

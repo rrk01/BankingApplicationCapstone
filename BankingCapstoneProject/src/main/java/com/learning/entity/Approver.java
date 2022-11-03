@@ -14,22 +14,25 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="approvers")
 public class Approver {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@NotNull
 	@Size(min=5, max=255)
-	@Column(name="name")
-	private String name;
-	
+	@Column(name="fullName")
+	private String fullName;
+  private String passWord;
+
 	public Approver() {
 		super();
 	}
 
-	public Approver(long id, String name) {
+	public Approver(long id, String fullName, String password) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.fullName = fullName;
+		this.passWord = password;
 	}
 
 	public long getId() {
@@ -40,12 +43,22 @@ public class Approver {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFullName() {
+		return fullName;
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	}
+  public String getPassWord() {
+		return passWord;
+	}
+	public void setPassWord(String passWord) {
+		this.passWord = passWord;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	@Override
+	public String toString() {
+		return "Approver [id=" + id + ", fullName=" + fullName + ", passWord=" + passWord + "]";
 	}
-	
+  
 }

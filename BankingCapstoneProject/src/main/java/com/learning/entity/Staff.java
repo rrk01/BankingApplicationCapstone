@@ -3,44 +3,77 @@ package com.learning.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Table;
 
+import javax.persistence.Table;
+import javax.persistence.Id;
 import org.springframework.data.annotation.Id;
+
 @Entity
 @Table
-public class Staff {///
-	private String firstName;
-	@Id
+public class Staff {
+	public enum status {
+		ENABLE,DISABLE
+	}
+	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long id;
+	private String name;
 	private String userName;
+	private String firstName;
 	private String password;
+	private status status;
 	
 	public Staff() {
 		super();
 	}
-	public Staff(String firstName, String userName, String password) {
+
+	public Staff(long id, String name, String userName, String password, status status) {
 		super();
-		this.firstName = firstName;
+		this.id = id;
+		this.name = name;
 		this.userName = userName;
 		this.password = password;
+		this.status = status;
 	}
-	public String getFirstName() {
-		return firstName;
+
+	public long getId() {
+		return id;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setId(long id) {
+		this.id = id;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public status getStatus() {
+		return status;
+	}
+	
+	public void setStatus(status status) {
+		this.status = status;
 	}
 	
 }

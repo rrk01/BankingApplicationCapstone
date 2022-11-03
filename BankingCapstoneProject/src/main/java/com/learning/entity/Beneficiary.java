@@ -12,28 +12,37 @@ import com.learning.entity.Account;
 @Entity
 @Table
 public class Beneficiary {
+	public enum accounttype{
+		SB,CA
+	}
+  
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private long beneficiaryAcNo;
-	private long accountNumber; // CustomerId 
-	private AccountType accountType; // SB OR CA
+	private long beneficiaryAcNo; // Id in the table
+	private long accountNumber; // Links to the ACCOUNT ENTITY
+	private long customerId; // LINKS TO THE CUSTOMER ENTITY
+	private accounttype accountType; // SB OR CA
+
 	private String beneficiaryName; // bene Name
-	private Boolean approved; // false as Default
+	private boolean approved; // false as Default (Done by Staff)
+	private boolean active; // (Yes/No) (Done by Customer)
 	private Date beneficiaryAddedDate;
 	
 	public Beneficiary() {
 		super();
 	}
 
-	public Beneficiary(long beneficiaryAcNo, long accountNumber, AccountType accountType, String beneficiaryName,
-			Boolean approved, Date beneficiaryAddedDate) {
+	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, accounttype accountType, String beneficiaryName,
+			boolean approved, boolean active, Date beneficiaryAddedDate) {
 		super();
 		this.beneficiaryAcNo = beneficiaryAcNo;
 		this.accountNumber = accountNumber;
+		this.customerId = customerID;
 		this.accountType = accountType;
 		this.beneficiaryName = beneficiaryName;
 		this.approved = approved;
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
+		this.setStatus(status);
 	}
   
 	public long getBeneficiaryAcNo() {
@@ -52,7 +61,15 @@ public class Beneficiary {
 		this.accountNumber = accountNumber;
 	}
 
-	public AccountType getAccountType() {
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public accounttype getAccountType() {
 		return accountType;
 	}
 
@@ -83,6 +100,14 @@ public class Beneficiary {
 	public void setBeneficiaryAddedDate(Date beneficiaryAddedDate) {
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
 	}
-	
-	
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 }
+

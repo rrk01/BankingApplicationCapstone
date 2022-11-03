@@ -2,26 +2,28 @@ package com.learning.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Optional;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name="ACCOUNTS")
+@Table(name = "ACCOUNTS")
 public class Account {
-/*
- * accountType: enum (SAVINGS/CHECKING),
- * accountStatus: enum (ENABLED, DISABLED),
- * accountBalance: Number,
- * approved: no,
- * accountNumber: Number,
- * dateOfCreation: date/time,
- * customerId: Number
- */
-	@Column(name="account_type") 
-	private AccountType accountType;
-	@Column(name="account_status")
+	/*
+	 * accountType: enum (SAVINGS/CHECKING), accountStatus: enum (ENABLED,
+	 * DISABLED), accountBalance: Number, approved: no, accountNumber: Number,
+	 * dateOfCreation: date/time, customerId: Number
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long accountNumber;
+	@Column(name = "customer_id")
+	private long customerId;
+	/*@Column(name = "account_type") // Fix this enum stuff, naming convention seems indecisive -
+	private AccountType accountType;*/
+	@Column(name = "account_status")
 	private AccountStatus accountStatus;
-	@Column(name="account_balance")
+	@Column(name = "account_balance")
 	private BigDecimal accountBalance;
 	@Column(name="approved")
 	private boolean approved;
@@ -30,26 +32,42 @@ public class Account {
 	private long accountNumber;
 
 //	private accounttype accountType;
-//	private float accountBalance;
-//	private boolean approved;
-  
-  @Column(name="creation_date")
+	@Column(name = "approved")
+	private boolean approved;
+	@Column(name = "creation_date")
 	private Date dateOfCreation;
-	@Column(name="customer_id")
-	private long customerId;
-	
+
 	public Account() {
 		super();
 	}
-
-	public Account(AccountType accountType, BigDecimal accountBalance, boolean approved, long accountNumber,
-			Date dateOfCreation, long customerId) {
+  
+	public Account(long accountNumber, long customerId, AccountType accountType, AccountStatus accountStatus,
+			BigDecimal accountBalance, boolean approved, Date dateOfCreation) {
 		super();
+
+		this.accountNumber = accountNumber;
+		this.customerId = customerId;
 		this.accountType = accountType;
+		this.accountStatus = accountStatus;
 		this.accountBalance = accountBalance;
 		this.approved = approved;
-		this.accountNumber = accountNumber;
 		this.dateOfCreation = dateOfCreation;
+    
+	}
+  
+	public long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 
@@ -59,6 +77,14 @@ public class Account {
 
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
+	}
+
+	public AccountStatus getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(AccountStatus accountStatus) {
+		this.accountStatus = accountStatus;
 	}
 
 	public BigDecimal getAccountBalance() {
@@ -77,14 +103,6 @@ public class Account {
 		this.approved = approved;
 	}
 
-	public long getAccountNumber() {
-		return accountNumber;
-	}
-
-	public void setAccountNumber(long accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
 	public Date getDateOfCreation() {
 		return dateOfCreation;
 	}
@@ -93,13 +111,4 @@ public class Account {
 		this.dateOfCreation = dateOfCreation;
 	}
 
-	public long getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-	
-	
 }
