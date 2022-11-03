@@ -10,23 +10,19 @@ import javax.persistence.Id;
 @Entity
 @Table
 public class Staff {
-	public enum status {
-		ENABLE,DISABLE
-	}
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	private String userName;
-	private String firstName;
 	private String password;
-	private status status;
+	private StaffStatus status;
 	
 	public Staff() {
 		super();
 	}
 
-	public Staff(long id, String name, String userName, String password, status status) {
+	public Staff(long id, String name, String userName, String password, StaffStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -67,11 +63,11 @@ public class Staff {
 		this.password = password;
 	}
 
-	public status getStatus() {
+	public StaffStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(status status) {
+	public void setStatus(StaffStatus status) {
 		this.status = status;
 	}
 	
