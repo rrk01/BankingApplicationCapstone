@@ -12,16 +12,13 @@ import com.learning.entity.Account;
 @Entity
 @Table
 public class Beneficiary {
-	public enum accounttype{
-		SB,CA
-	}
   
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private long beneficiaryAcNo; // Id in the table
 	private long accountNumber; // Links to the ACCOUNT ENTITY
 	private long customerId; // LINKS TO THE CUSTOMER ENTITY
-	private accounttype accountType; // SB OR CA
+	private AccountType accountType; // SB OR CA
 
 	private String beneficiaryName; // bene Name
 	private boolean approved; // false as Default (Done by Staff)
@@ -32,8 +29,8 @@ public class Beneficiary {
 		super();
 	}
 
-	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, accounttype accountType, String beneficiaryName,
-			boolean approved, boolean active, Date beneficiaryAddedDate) {
+	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, AccountType accountType, String beneficiaryName,
+			boolean approved, boolean active, Date beneficiaryAddedDate ) {
 		super();
 		this.beneficiaryAcNo = beneficiaryAcNo;
 		this.accountNumber = accountNumber;
@@ -42,7 +39,7 @@ public class Beneficiary {
 		this.beneficiaryName = beneficiaryName;
 		this.approved = approved;
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
-		this.setStatus(status);
+		this.active=active;
 	}
   
 	public long getBeneficiaryAcNo() {
@@ -69,7 +66,7 @@ public class Beneficiary {
 		this.customerId = customerId;
 	}
 
-	public accounttype getAccountType() {
+	public AccountType getAccountType() {
 		return accountType;
 	}
 
