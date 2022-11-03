@@ -1,10 +1,9 @@
-/**
- * 
- */
 package com.learning.repo;
 
 import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -15,11 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.learning.entity.Beneficiary;
 
+import com.learning.entity.Beneficiary;
+
 /**
  * @author Greg N.
  * @date :
  * 
  */
+
+//@Transactional
 @Repository
 @Transactional
 public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Long> {

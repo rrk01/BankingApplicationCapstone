@@ -33,10 +33,11 @@ public class Account {
 	public Account() {
 		super();
 	}
-
+  
 	public Account(long accountNumber, long customerId, AccountType accountType, AccountStatus accountStatus,
 			BigDecimal accountBalance, boolean approved, Date dateOfCreation) {
 		super();
+
 		this.accountNumber = accountNumber;
 		this.customerId = customerId;
 		this.accountType = accountType;
@@ -44,8 +45,9 @@ public class Account {
 		this.accountBalance = accountBalance;
 		this.approved = approved;
 		this.dateOfCreation = dateOfCreation;
+    
 	}
-
+  
 	public long getAccountNumber() {
 		return accountNumber;
 	}
@@ -101,4 +103,5 @@ public class Account {
 	public void setDateOfCreation(Date dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
+
 }

@@ -1,18 +1,33 @@
 package com.learning.controller;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.CustomerStatus;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.learning.entity.Account;
+import com.learning.entity.AccountStatus;
+import com.learning.entity.AccountType;
+import com.learning.entity.Beneficiary;
+
 import com.learning.repo.AccountRepo;
 import com.learning.repo.BeneficiaryRepo;
 import com.learning.repo.CustomerRepo;
@@ -24,6 +39,7 @@ enum status {
 	ENABLE, DISABLE
 }
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/staff")
 public class StaffController {
@@ -46,7 +62,6 @@ public class StaffController {
 			account.setApproved(true);
 		}
 		customerService.saveApproval(account);
-		return account;
 	}
 
 	@GetMapping("/{customerId}/account")
@@ -64,7 +79,7 @@ public class StaffController {
 		return staffService.getAllBeneficiary();
 	}
 
-//	------------------------------------------------------------------------------------------
+/*//	------------------------------------------------------------------------------------------
 	// TEST CALL
 	@GetMapping("/beneficiaryApproved") // GETS beneficiary that need to be approved (TESTING PURPOSE TO SEE IF they got
 										// approved)
@@ -82,7 +97,7 @@ public class StaffController {
 		return ResponseEntity.ok(updateBeneficiary);
 	}
 
-//	------------------------------------------------------------------------------------------
+//	------------------------------------------------------------------------------------------*/
 	@GetMapping("/accounts/approved")
 	public List<Account> getAccountsNotApproved() {
 		return staffService.getAccountsNotApproved();
@@ -142,7 +157,7 @@ public class StaffController {
 				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + fromAccNumber));
 
 		updateAccountBalance.setAccountBalance(updateAccountBalance.getAccountBalance().subtract(accountDetails.getAccountBalance()));
-		updateAccountBalance_2.setAccountBalance(accountDetails.getAccountBalance().subtract(updateAccountBalance.getAccountBalance()));
+		updateAccountBalance_2.setAccountBalance(accountDetails.getAccountBalance().add(updateAccountBalance.getAccountBalance()));
 		
 		staffRepo.updateAccountBalance(updateAccountBalance);
 		staffRepo.updateAccountBalance_2(updateAccountBalance_2);

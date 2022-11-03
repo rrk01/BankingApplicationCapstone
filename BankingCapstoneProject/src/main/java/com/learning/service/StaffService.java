@@ -11,6 +11,7 @@ import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.Staff;
+import com.learning.entity.Staff.StaffStatus;
 import com.learning.repo.StaffRepo;
 
 @Service
@@ -45,22 +46,20 @@ public class StaffService {
 	public Customer getCustomerById(long customerId) {
 		return staffRepo.getCustomerById(customerId);
 	}
-
 	
-	// Enable / Disable 
-//	public Staff enableOrDisableCustomerMember(long customerId) {
-//        Staff staffObject=staffRepo.findById(username).get();
-//        if(staffObject.getStatus()==status.ENABLE) {
-//            staffObject.setStatus(status.DISABLE);
-//        }else if(staffObject.getStatus()==status.DISABLE) {
-//            staffObject.setStatus(status.ENABLE);
-//        }
-//        staffRepo.save(staffObject);
-//        return new Staff(staffObject.getId(), null, null, null, staffObject.getStatus()) ;
-//    }
-	
-	// Approve beneficiary
-	
-	
-	
+/* - Move to Approver entity (?)
+	public List<Staff> listAllStaffMembers() {
+		return staffRepo.findAll();
+	}
+	public Staff enableOrDisableStaffMember(String username) {
+		Staff staffObject=staffRepo.findById(username).get();
+		if(staffObject.getStatus()==StaffStatus.ENABLED) {
+			staffObject.setStatus(StaffStatus.DISABLED);
+		}else if(staffObject.getStatus()==StaffStatus.DISABLED) {
+			staffObject.setStatus(StaffStatus.ENABLED);
+		}
+		staffRepo.save(staffObject);
+		return new Staff(staffObject.getId(), null, null, null, staffObject.getStatus()) ;
+	}
+*/
 }
