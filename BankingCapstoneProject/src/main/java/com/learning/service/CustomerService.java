@@ -49,10 +49,12 @@ public class CustomerService {
 			}
 		}
 		return account;
+
 	}
 	public List<Account> findAllCustomerAccount(long custID) {
 		return accountRepo.findAll().stream().filter(a -> a.getCustomerId() == custID).collect(Collectors.toList());
 	}
+
 	public Customer findCustomerById(long id) {
 		Optional<Customer> CustomerObject=customerRepo.findById(id);
 		return CustomerObject.get();
@@ -75,24 +77,20 @@ public class CustomerService {
 		return beneficiaryRepo.save(beneficiary);
 	}
 
-	public List<Beneficiary> getBeneficiary(Beneficiary beneficiary, long custID) {
-		beneficiariesList.clear();
-		List<Beneficiary> beneficiaries=beneficiaryRepo.findAll();
-		List<Account> validAccounts=accountRepo.getValidAccounts(custID);
-		for(Account acct: validAccounts) {
-			for(int i=0;i<beneficiaries.size();i++) {
-				if(acct.getAccountNumber()==beneficiaries.get(i).getAccountNumber()) {
-					beneficiariesList.add(beneficiaries.get(i));
-				}
-			}
+	public List<Beneficiary> getBeneficiary(long custID) {
+		beneficiaryList.clear();
+		List<Account> validAccounts=accountRepo.getValidAccounts(custID); // CHECK IF ITS ACTIVE (approved)
+		for(Account acct: validAccounts) { // Iterated accounts
+			beneficiaryList.addAll(beneficiaryRepo.getBeneficiaryForAccount(acct.getAccountNumber())); // GET ALL beneficiary based off accNum
 		}
-		return beneficiariesList;
+		return beneficiaryList;
 	}
 
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		//return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);//////// OVERKILL
 		try {
-			if(beneficiaryRepo.findById(beneficiaryID).get().getCustomerId()==custID) {
+
+			if(beneficiaryRepo.getById(beneficiaryID).getCustomerId()==custID) {
 				beneficiaryRepo.deleteById(beneficiaryID);
 				return "BENEFICIARY DELETED";
 			} else {
@@ -101,6 +99,7 @@ public class CustomerService {
 		}catch(Exception e) {
 			return "BENEFICIARY NOT DELETED";
 		}
+		
 	}
-	
 }
+
