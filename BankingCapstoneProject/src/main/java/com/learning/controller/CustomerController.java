@@ -29,7 +29,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 import com.learning.entity.Account;
+
 import com.learning.entity.AccountType;
+
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.Beneficiary.accounttype;
@@ -58,13 +60,17 @@ public class CustomerController {
 				null, 0);
 	}
 
-	@JsonInclude(JsonInclude.Include.NON_NULL)
+	
 	@GetMapping("/{id}")
-	public Customer getCustomer(@Valid @PathVariable("id") long id) {
-		Customer customer=customerService.findCustomerById(id);
-		return new Customer(0, customer.getSSN(), customer.getUserName(), customer.getFullName(), null, customer.getPhone(),null, null,null);
+	public List<Object> getCustomer(@Valid @PathVariable("id") long id) {
+		return customerService.getCustomer(id);
 	}
 	
+	@GetMapping("/getcustomer")
+	public List<Customer> getCustomers() {
+		return customerService.getCustomers();
+
+	}
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PutMapping("/{id}")
@@ -75,16 +81,12 @@ public class CustomerController {
 				,updatedcustomer.getSecretQuestion(), updatedcustomer.getSecretAnswer(), null);
 	}
 
-	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
 
-		/*accountNumber: Integer, accountType:Enum(SB/CA), accountBalance:Number, accountStatus:Enum(Enable/Disable)*/
-		Account account=customerService.findCustomerAccount(custID, acctID);
-		return new Account(account.getAccountType(), account.getAccountStatus() ,account.getAccountBalance(), account.isApproved(), account.getAccountNumber(),
-				null, 0);
-
+		return customerService.findCustomerAccount(custID,acctID);
 	}
+
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/{custID}/beneficiary")
@@ -94,22 +96,16 @@ public class CustomerController {
 				beneficiary.getApproved(), null,null);
 	}
 	
-	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@GetMapping("/{custID}/beneficiary")
-	public List<Beneficiary> getBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
-		List<Beneficiary> beneficiarieslist=customerService.getBeneficiary(beneficiary, custID);
-		List<Beneficiary> beneficiariesreturnlist=new ArrayList<>();
-		for(int i=0;i<beneficiarieslist.size();i++) {
-			beneficiariesreturnlist.add(new Beneficiary(0, beneficiarieslist.get(i).getAccountNumber(),0, null,
-					beneficiarieslist.get(i).getBeneficiaryName(),
-					null, null,beneficiarieslist.get(i).getStatus()));
-		}
-		return beneficiariesreturnlist;
+	public List<Beneficiary> getBeneficiary(@Valid @PathVariable("custID") long custID) {
+		return customerService.getBeneficiary(custID);
 
 	}
+  
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
-
+	
+	// TODO - CUSTOMER TRANSFER (?)
 }

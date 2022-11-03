@@ -15,31 +15,29 @@ public class Beneficiary {
 	public enum accounttype{
 		SB,CA
 	}
-	enum BeneficiaryStatus{
-		ACTIVE,INACTIVE
-	}
+  
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
-	private long beneficiaryAcNo;
-	private long accountNumber;
-	private long customerId;
+	private long beneficiaryAcNo; // Id in the table
+	private long accountNumber; // Links to the ACCOUNT ENTITY
+	private long customerId; // LINKS TO THE CUSTOMER ENTITY
 	private accounttype accountType; // SB OR CA
 	private String beneficiaryName; // bene Name
-	private Boolean approved; // false as Default
+	private boolean approved; // false as Default (Done by Staff)
+	private boolean active; // (Yes/No) (Done by Customer)
 	private Date beneficiaryAddedDate;
-	private BeneficiaryStatus status;
 	
 	public Beneficiary() {
 		super();
 	}
 
-	public Beneficiary(long beneficiaryAcNo, long accountNumber,long customerId, accounttype accountType, String beneficiaryName,
-			Boolean approved, Date beneficiaryAddedDate,BeneficiaryStatus status) {
 
+	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, accounttype accountType, String beneficiaryName,
+			boolean approved, boolean active, Date beneficiaryAddedDate) {
 		super();
 		this.beneficiaryAcNo = beneficiaryAcNo;
 		this.accountNumber = accountNumber;
-		this.customerId = customerId;
+		this.customerId = customerID;
 		this.accountType = accountType;
 		this.beneficiaryName = beneficiaryName;
 		this.approved = approved;
@@ -62,6 +60,7 @@ public class Beneficiary {
 	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
 	}
+
 	public long getCustomerId() {
 		return customerId;
 	}
@@ -102,13 +101,13 @@ public class Beneficiary {
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
 	}
 
-	public BeneficiaryStatus getStatus() {
-		return status;
+	public boolean isActive() {
+		return active;
 	}
 
-	public void setStatus(BeneficiaryStatus status) {
-		this.status = status;
+	public void setActive(boolean active) {
+		this.active = active;
 	}
-	
-	
+
 }
+

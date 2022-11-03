@@ -61,6 +61,4 @@ public class Approver {
 		return "Approver [id=" + id + ", fullName=" + fullName + ", passWord=" + passWord + "]";
 	}
   
-	
-	
 }

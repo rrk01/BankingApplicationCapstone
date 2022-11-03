@@ -23,7 +23,9 @@ public class Transfer {
 		super();
 	}
 
-	public Transfer(Long id, Long from, Long to, String reason, Boolean isApproved) {
+}
+
+	public Transfer(Long id, Long from, Long to, String reason, Boolean isApproved) { //Change 'from' and 'to' variable names ??
 		super();
 		this.id = id;
 		this.from = from;
