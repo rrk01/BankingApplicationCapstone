@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 import com.learning.entity.Account;
 import com.learning.entity.AccountType;
 import com.learning.entity.Beneficiary;
@@ -45,7 +47,7 @@ public class CustomerController {
 	@PostMapping("/register")
 	public Customer registerCustomer(@RequestBody Customer customer) {
 		 customerService.registerCustomer(customer);
-		 return new Customer(customer.getId(), 0, customer.getUserName(), customer.getFullName(), customer.getPassword(), null,null, null);
+		 return new Customer(customer.getId(), 0, customer.getUserName(), customer.getFullName(), customer.getPassword(), null,null, null, null);
 	}
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/{id}/account")
@@ -60,7 +62,7 @@ public class CustomerController {
 	@GetMapping("/{id}")
 	public Customer getCustomer(@Valid @PathVariable("id") long id) {
 		Customer customer=customerService.findCustomerById(id);
-		return new Customer(0, customer.getSsn(), customer.getUserName(), customer.getFullName(), null, customer.getPhone(),null, null);
+		return new Customer(0, customer.getSSN(), customer.getUserName(), customer.getFullName(), null, customer.getPhone(),null, null,null);
 	}
 	
 	
@@ -69,8 +71,8 @@ public class CustomerController {
 	public Customer updateCustomer(@Valid @RequestBody Customer customer, @PathVariable("id") long id) {
 		customerService.updateCustomer(customer,id);
 		Customer updatedcustomer=customerService.findCustomerById(id);
-		return new Customer(updatedcustomer.getId(), customer.getSsn(), null, customer.getFullName(), null, customer.getPhone()
-				,updatedcustomer.getSecretQuestion(), updatedcustomer.getSecretAnswer());
+		return new Customer(updatedcustomer.getId(), customer.getSSN(), null, customer.getFullName(), null, customer.getPhone()
+				,updatedcustomer.getSecretQuestion(), updatedcustomer.getSecretAnswer(), null);
 	}
 
 	@JsonInclude(JsonInclude.Include.NON_NULL)
@@ -78,7 +80,7 @@ public class CustomerController {
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
 
 		/*accountNumber: Integer, accountType:Enum(SB/CA), accountBalance:Number, accountStatus:Enum(Enable/Disable)*/
-		Account account=customerService.findCustomerAccount(acctID);
+		Account account=customerService.findCustomerAccount(custID, acctID);
 		return new Account(account.getAccountType(), account.getAccountStatus() ,account.getAccountBalance(), account.isApproved(), account.getAccountNumber(),
 				null, 0);
 
@@ -88,7 +90,7 @@ public class CustomerController {
 	@PostMapping("/{custID}/beneficiary")
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
 		customerService.addBeneficiary(beneficiary,custID);
-		return new Beneficiary(0, beneficiary.getAccountNumber(), beneficiary.getAccountType(), null,
+		return new Beneficiary(0, beneficiary.getAccountNumber(),0, beneficiary.getAccountType(), null,
 				beneficiary.getApproved(), null,null);
 	}
 	
@@ -98,7 +100,7 @@ public class CustomerController {
 		List<Beneficiary> beneficiarieslist=customerService.getBeneficiary(beneficiary, custID);
 		List<Beneficiary> beneficiariesreturnlist=new ArrayList<>();
 		for(int i=0;i<beneficiarieslist.size();i++) {
-			beneficiariesreturnlist.add(new Beneficiary(0, beneficiarieslist.get(i).getAccountNumber(), null,
+			beneficiariesreturnlist.add(new Beneficiary(0, beneficiarieslist.get(i).getAccountNumber(),0, null,
 					beneficiarieslist.get(i).getBeneficiaryName(),
 					null, null,beneficiarieslist.get(i).getStatus()));
 		}

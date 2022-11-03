@@ -78,7 +78,7 @@ public class CustomerService {
 	public List<Beneficiary> getBeneficiary(Beneficiary beneficiary, long custID) {
 		beneficiariesList.clear();
 		List<Beneficiary> beneficiaries=beneficiaryRepo.findAll();
-		List<Account> validAccounts=accountRepo.getAllCustomerAccounts(custID).stream().filter(t->t.isApproved()==true).collect(Collectors.toList());
+		List<Account> validAccounts=accountRepo.getValidAccounts(custID);
 		for(Account acct: validAccounts) {
 			for(int i=0;i<beneficiaries.size();i++) {
 				if(acct.getAccountNumber()==beneficiaries.get(i).getAccountNumber()) {
@@ -92,7 +92,7 @@ public class CustomerService {
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		//return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);//////// OVERKILL
 		try {
-			if(beneficiaryRepo.getById(beneficiaryID).getCustomerId()==custID) {
+			if(beneficiaryRepo.findById(beneficiaryID).get().getCustomerId()==custID) {
 				beneficiaryRepo.deleteById(beneficiaryID);
 				return "BENEFICIARY DELETED";
 			} else {

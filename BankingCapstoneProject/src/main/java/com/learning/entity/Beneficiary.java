@@ -33,13 +33,13 @@ public class Beneficiary {
 		super();
 	}
 
-	public Beneficiary(long beneficiaryAcNo, long accountNumber, accounttype accountType, String beneficiaryName,
+	public Beneficiary(long beneficiaryAcNo, long accountNumber,long customerId, accounttype accountType, String beneficiaryName,
 			Boolean approved, Date beneficiaryAddedDate,BeneficiaryStatus status) {
 
 		super();
 		this.beneficiaryAcNo = beneficiaryAcNo;
 		this.accountNumber = accountNumber;
-		this.customerId = customerID;
+		this.customerId = customerId;
 		this.accountType = accountType;
 		this.beneficiaryName = beneficiaryName;
 		this.approved = approved;
@@ -61,6 +61,13 @@ public class Beneficiary {
 
 	public void setAccountNumber(long accountNumber) {
 		this.accountNumber = accountNumber;
+	}
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
 	}
 
 	public accounttype getAccountType() {
