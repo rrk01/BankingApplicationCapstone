@@ -3,24 +3,21 @@ package com.learning.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.data.annotation.Id;
 
 
 @Entity
-@Table
+@Table(name="staff")
 public class Staff {
-	public enum status {
-		ENABLE,DISABLE
-	}
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	private String userName;
 	private String password;
-	private status status;
+	private AccountStatus status;
 	
 	
 	public Staff() {
@@ -28,7 +25,7 @@ public class Staff {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Staff(long id, String name, String userName, String password, status status) {
+	public Staff(long id, String name, String userName, String password, AccountStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -78,11 +75,11 @@ public class Staff {
 	}
 
 
-	public status getStatus() {
+	public AccountStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(status status) {
+	public void setStatus(AccountStatus status) {
 		this.status = status;
 	}
 	

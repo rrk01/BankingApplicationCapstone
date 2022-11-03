@@ -3,11 +3,9 @@ package com.learning.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import com.learning.entity.Account;
+import com.learning.entity.AccountStatus;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.Staff;
@@ -26,41 +24,40 @@ public class StaffService {
 		return staffRepo.getParticularAccount(accountNumber);
 	}
 	
-	public List<Beneficiary> getAllBeneficiary() {
-		return staffRepo.getAllBeneficiary(); 
-	}
-	
-	public List<Beneficiary> getAllBeneficiaryApproved() {
-		return staffRepo.getAllBeneficiary(); 
-	}
-	
-	public List<Account> getAccountsNotApproved(){
-		return staffRepo.getAccountsNotApproved();
-	}
-	
-	public List<Customer> getCustomer() {
-		return staffRepo.getCustomer();
-	}
-
-	public Customer getCustomerById(long customerId) {
-		return staffRepo.getCustomerById(customerId);
-	}
-
-	
+//	public List<Beneficiary> getAllBeneficiary() {
+//		return staffRepo.getAllBeneficiary(); 
+//	}
+//	
+//	public List<Beneficiary> getAllBeneficiaryApproved() {
+//		return staffRepo.getAllBeneficiary(); 
+//	}
+//	
+//	public List<Account> getAccountsNotApproved(){
+//		return staffRepo.getAccountsNotApproved();
+//	}
+//	
+//	public List<Customer> getCustomer() {
+//		return staffRepo.getCustomer();
+//	}
+//
+//	public Customer getCustomerById(long customerId) {
+//		return staffRepo.getCustomerById(customerId);
+//	}
+//
+//	
 	// Enable / Disable 
-//	public Staff enableOrDisableCustomerMember(long customerId) {
-//        Staff staffObject=staffRepo.findById(username).get();
-//        if(staffObject.getStatus()==status.ENABLE) {
-//            staffObject.setStatus(status.DISABLE);
-//        }else if(staffObject.getStatus()==status.DISABLE) {
-//            staffObject.setStatus(status.ENABLE);
-//        }
-//        staffRepo.save(staffObject);
-//        return new Staff(staffObject.getId(), null, null, null, staffObject.getStatus()) ;
-//    }
-	
+	public List<Staff> listAllStaffMembers() {
+		return staffRepo.findAll();
+	}
+	public Staff enableOrDisableStaffMember(long id) {
+		Staff staffObject=staffRepo.findById(id).get();
+		if(staffObject.getStatus()==AccountStatus.ENABLED) {
+			staffObject.setStatus(AccountStatus.DISABLED);
+		}else if(staffObject.getStatus()==AccountStatus.DISABLED) {
+			staffObject.setStatus(AccountStatus.ENABLED);
+		}
+		staffRepo.save(staffObject);
+		return new Staff(staffObject.getId(), null, null, null, staffObject.getStatus()) ;
+	}
 	// Approve beneficiary
-	
-	
-	
 }

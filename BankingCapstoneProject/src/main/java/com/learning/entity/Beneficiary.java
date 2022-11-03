@@ -9,19 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import com.learning.entity.Account;
 
-
 @Entity
 @Table
 public class Beneficiary {
-	public enum accounttype{
-		SB,CA
-	}
+  
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private long beneficiaryAcNo; // Id in the table
 	private long accountNumber; // Links to the ACCOUNT ENTITY
 	private long customerId; // LINKS TO THE CUSTOMER ENTITY
-	private accounttype accountType; // SB OR CA
+	private AccountType accountType; // SB OR CA
+
 	private String beneficiaryName; // bene Name
 	private boolean approved; // false as Default (Done by Staff)
 	private boolean active; // (Yes/No) (Done by Customer)
@@ -31,8 +29,8 @@ public class Beneficiary {
 		super();
 	}
 
-	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, accounttype accountType, String beneficiaryName,
-			boolean approved, boolean active, Date beneficiaryAddedDate) {
+	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, AccountType accountType, String beneficiaryName,
+			boolean approved, boolean active, Date beneficiaryAddedDate ) {
 		super();
 		this.beneficiaryAcNo = beneficiaryAcNo;
 		this.accountNumber = accountNumber;
@@ -41,6 +39,7 @@ public class Beneficiary {
 		this.beneficiaryName = beneficiaryName;
 		this.approved = approved;
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
+		this.active=active;
 	}
   
 	public long getBeneficiaryAcNo() {
@@ -59,11 +58,19 @@ public class Beneficiary {
 		this.accountNumber = accountNumber;
 	}
 
-	public accounttype getAccountType() {
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
+		this.customerId = customerId;
+	}
+
+	public AccountType getAccountType() {
 		return accountType;
 	}
 
-	public void setAccountType(accounttype accountType) {
+	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
 
@@ -91,14 +98,6 @@ public class Beneficiary {
 		this.beneficiaryAddedDate = beneficiaryAddedDate;
 	}
 
-	public long getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-
 	public boolean isActive() {
 		return active;
 	}
@@ -106,6 +105,5 @@ public class Beneficiary {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
-	
+
 }

@@ -54,98 +54,98 @@ public class StaffController {
 		return customerService.findAllCustomerAccount(customerId);
 	}
 
-	@GetMapping("/account/{accountNumber}") // GET the statement of particular account
+	@GetMapping("/account/{accountNumber}") // GET the statement of particular (transactions) account
 	public Account getParticularAccount(@PathVariable("accountNumber") long accountNumber) {
 		return staffService.getParticularAccount(accountNumber);
 	}
 
-	@GetMapping("/beneficiary") // GETS beneficiary that need to be approved
-	public List<Beneficiary> getAllBeneficiary() {
-		return staffService.getAllBeneficiary();
-	}
+//	@GetMapping("/beneficiary") // GETS beneficiary that need to be approved
+//	public List<Beneficiary> getAllBeneficiary() {
+//		return staffService.getAllBeneficiary();
+//	}
 
 //	------------------------------------------------------------------------------------------
 	// TEST CALL
-	@GetMapping("/beneficiaryApproved") // GETS beneficiary that need to be approved (TESTING PURPOSE TO SEE IF they got
+//	@GetMapping("/beneficiaryApproved") // GETS beneficiary that need to be approved (TESTING PURPOSE TO SEE IF they got
 										// approved)
-	public List<Beneficiary> getAllBeneficiaryApproved() {
-		return staffService.getAllBeneficiaryApproved();
-	}
-
-	@PutMapping("/beneficiary/{beneficiaryAcNo}/{customerId}") // APPROVES THE BENE Which were added by Customer
-	public ResponseEntity<Beneficiary> updateBeneficiary(@PathVariable("beneficiaryAcNo") long beneficiaryAcNo,
-			@PathVariable("customerId") long customerId) {
-		Beneficiary updateBeneficiary = beneficiaryRepo.findBeneficiary(beneficiaryAcNo, customerId)
-				.orElseThrow(() -> new RuntimeException("Beneficiary Not exisit with id: " + beneficiaryAcNo));
-		updateBeneficiary.setApproved(true);
-		beneficiaryRepo.save(updateBeneficiary);
-		return ResponseEntity.ok(updateBeneficiary);
-	}
+//	public List<Beneficiary> getAllBeneficiaryApproved() {
+//		return staffService.getAllBeneficiaryApproved();
+//	}
+//
+//	@PutMapping("/beneficiary/{beneficiaryAcNo}/{customerId}") // APPROVES THE BENE Which were added by Customer
+//	public ResponseEntity<Beneficiary> updateBeneficiary(@PathVariable("beneficiaryAcNo") long beneficiaryAcNo,
+//			@PathVariable("customerId") long customerId) {
+//		Beneficiary updateBeneficiary = beneficiaryRepo.findBeneficiary(beneficiaryAcNo, customerId)
+//				.orElseThrow(() -> new RuntimeException("Beneficiary Not exisit with id: " + beneficiaryAcNo));
+//		updateBeneficiary.setApproved(true);
+//		beneficiaryRepo.save(updateBeneficiary);
+//		return ResponseEntity.ok(updateBeneficiary);
+//	}
 
 //	------------------------------------------------------------------------------------------
-	@GetMapping("/accounts/approved")
-	public List<Account> getAccountsNotApproved() {
-		return staffService.getAccountsNotApproved();
-	}
+//	@GetMapping("/accounts/approved")
+//	public List<Account> getAccountsNotApproved() {
+//		return staffService.getAccountsNotApproved();
+//	}
 
-	@PutMapping("/accounts/approved/{accountNumber}/{customerId}")
-	public ResponseEntity<Account> updateAccountType(@PathVariable("accountNumber") long accountNumber,
-			@PathVariable("customerId") long customerId) {
-		Account updateAccountType = staffRepo.getParticularAccount(accountNumber, customerId)
-				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + accountNumber));
+//	@PutMapping("/accounts/approved/{accountNumber}/{customerId}")
+//	public ResponseEntity<Account> updateAccountType(@PathVariable("accountNumber") long accountNumber,
+//			@PathVariable("customerId") long customerId) {
+//		Account updateAccountType = staffRepo.getParticularAccountType(accountNumber, customerId)
+//				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + accountNumber));
+//
+//		updateAccountType.setApproved(true);
+//		staffRepo.saveAccount(updateAccountType.isApproved());
+//		return ResponseEntity.ok(updateAccountType);
+//	}
 
-		updateAccountType.setApproved(true);
-		staffRepo.saveAccount(updateAccountType.isApproved());
-		return ResponseEntity.ok(updateAccountType);
-	}
+//	@GetMapping("/customer")
+//	public List<Customer> getCustomer() {
+//		return staffService.getCustomer();
+//	}
 
-	@GetMapping("/customer")
-	public List<Customer> getCustomer() {
-		return staffService.getCustomer();
-	}
+//	@PutMapping("/customer/enable/{customerId}")
+//	public ResponseEntity<Customer> updateCustomerEnable(@PathVariable("customerId") long customerId) {
+//		Customer updateCustomer = customerRepo.findById(customerId)
+//				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
+//
+//		updateCustomer.setStatus(CustomerStatus.ENABLE);
+//		staffRepo.saveCustomerEnable(customerId, updateCustomer.getStatus());
+//		return ResponseEntity.ok(updateCustomer);
+//	}
 
-	@PutMapping("/customer/enable/{customerId}")
-	public ResponseEntity<Customer> updateCustomerEnable(@PathVariable("customerId") long customerId) {
-		Customer updateCustomer = customerRepo.findById(customerId)
-				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
-
-		updateCustomer.setStatus(CustomerStatus.ENABLE);
-		staffRepo.saveCustomerEnable(customerId, updateCustomer.getStatus());
-		return ResponseEntity.ok(updateCustomer);
-	}
-
-	@PutMapping("/customer/disable/{customerId}")
-	public ResponseEntity<Customer> updateCustomerDisable(@PathVariable("customerId") long customerId) {
-		Customer updateCustomer = customerRepo.findById(customerId)
-				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
-
-		updateCustomer.setStatus(CustomerStatus.DISABLE);
-		staffRepo.saveCustomerDisable(customerId, updateCustomer.getStatus());
-		return ResponseEntity.ok(updateCustomer);
-	}
-
-	@GetMapping("/customer/{customerId}")
-	public Customer getCustomerById(@PathVariable("customerId") long customerId) {
-		return staffService.getCustomerById(customerId);
-	}
+//	@PutMapping("/customer/disable/{customerId}")
+//	public ResponseEntity<Customer> updateCustomerDisable(@PathVariable("customerId") long customerId) {
+//		Customer updateCustomer = customerRepo.findById(customerId)
+//				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
+//
+//		updateCustomer.setStatus(CustomerStatus.DISABLE);
+//		staffRepo.saveCustomerDisable(customerId, updateCustomer.getStatus());
+//		return ResponseEntity.ok(updateCustomer);
+//	}
+//
+//	@GetMapping("/customer/{customerId}")
+//	public Customer getCustomerById(@PathVariable("customerId") long customerId) {
+//		return staffService.getCustomerById(customerId);
+//	}
 
 	@Autowired
 	AccountRepo accountRepo;
 
-	@PutMapping("/transfer/{fromAccNumber}")
-	public ResponseEntity<Account> updateAccountBalance(@PathVariable("fromAccNumber") long fromAccNumber,
-			@RequestBody Account accountDetails) {
-		Account updateAccountBalance = accountRepo.findById(fromAccNumber)
-				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + fromAccNumber));
-		
-		Account updateAccountBalance_2 = accountRepo.findById(accountDetails.getAccountNumber())
-				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + fromAccNumber));
-
-		updateAccountBalance.setAccountBalance(updateAccountBalance.getAccountBalance().subtract(accountDetails.getAccountBalance()));
-		updateAccountBalance_2.setAccountBalance(accountDetails.getAccountBalance().subtract(updateAccountBalance.getAccountBalance()));
-		
-		staffRepo.updateAccountBalance(updateAccountBalance);
-		staffRepo.updateAccountBalance_2(updateAccountBalance_2);
-		return ResponseEntity.ok(updateAccountBalance);
-	}
+//	@PutMapping("/transfer/{fromAccNumber}")
+//	public ResponseEntity<Account> updateAccountBalance(@PathVariable("fromAccNumber") long fromAccNumber,
+//			@RequestBody Account accountDetails) {
+//		Account updateAccountBalance = accountRepo.findById(fromAccNumber)
+//				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + fromAccNumber));
+//		
+//		Account updateAccountBalance_2 = accountRepo.findById(accountDetails.getAccountNumber())
+//				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + fromAccNumber));
+//
+//		updateAccountBalance.setAccountBalance(updateAccountBalance.getAccountBalance().subtract(accountDetails.getAccountBalance()));
+//		updateAccountBalance_2.setAccountBalance(accountDetails.getAccountBalance().add(updateAccountBalance.getAccountBalance()));
+//		
+//		staffRepo.updateAccountBalance(updateAccountBalance);
+//		staffRepo.updateAccountBalance_2(updateAccountBalance_2);
+//		return ResponseEntity.ok(updateAccountBalance);
+//	}
 }

@@ -9,8 +9,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 @Entity
 @Table(name = "customers")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Customer {
 	/*
 	 * id: Number,
