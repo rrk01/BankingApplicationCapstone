@@ -22,6 +22,7 @@ public class Beneficiary {
 	private long accountNumber; // Links to the ACCOUNT ENTITY
 	private long customerId; // LINKS TO THE CUSTOMER ENTITY
 	private accounttype accountType; // SB OR CA
+
 	private String beneficiaryName; // bene Name
 	private boolean approved; // false as Default (Done by Staff)
 	private boolean active; // (Yes/No) (Done by Customer)
@@ -30,7 +31,6 @@ public class Beneficiary {
 	public Beneficiary() {
 		super();
 	}
-
 
 	public Beneficiary(long beneficiaryAcNo, long accountNumber, long customerID, accounttype accountType, String beneficiaryName,
 			boolean approved, boolean active, Date beneficiaryAddedDate) {
@@ -73,7 +73,7 @@ public class Beneficiary {
 		return accountType;
 	}
 
-	public void setAccountType(accounttype accountType) {
+	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
 	}
 
