@@ -4,6 +4,7 @@
 package com.learning.repo;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,5 +30,8 @@ public interface BeneficiaryRepo extends JpaRepository<Beneficiary, Long> {
 	@Modifying
 	@Query(value="delete from beneficiary where customer_id = :custID and beneficiary_ac_no = :beneficiaryID", nativeQuery= true)
 	public int deleteCustomersBeneficiary(@Param("beneficiaryID") long benficiaryID ,@Param("custID") long custID);
+	
+	@Query(value="")
+	public Optional<Beneficiary> findBeneficiary(long beneficiaryAcNo, long customerId);
 
 }

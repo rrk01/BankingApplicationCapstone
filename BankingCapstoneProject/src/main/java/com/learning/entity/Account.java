@@ -2,6 +2,7 @@ package com.learning.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Optional;
 
 import javax.persistence.*;
 
@@ -13,7 +14,6 @@ public class Account {
 	 * DISABLED), accountBalance: Number, approved: no, accountNumber: Number,
 	 * dateOfCreation: date/time, customerId: Number
 	 */
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long accountNumber;
@@ -34,15 +34,31 @@ public class Account {
 		super();
 	}
 
-	public Account(AccountType accountType, BigDecimal accountBalance, boolean approved, long accountNumber,
-			Date dateOfCreation, long customerId) {
-
+	public Account(long accountNumber, long customerId, AccountType accountType, AccountStatus accountStatus,
+			BigDecimal accountBalance, boolean approved, Date dateOfCreation) {
 		super();
+		this.accountNumber = accountNumber;
+		this.customerId = customerId;
 		this.accountType = accountType;
+		this.accountStatus = accountStatus;
 		this.accountBalance = accountBalance;
 		this.approved = approved;
-		this.accountNumber = accountNumber;
 		this.dateOfCreation = dateOfCreation;
+	}
+
+	public long getAccountNumber() {
+		return accountNumber;
+	}
+
+	public void setAccountNumber(long accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public long getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(long customerId) {
 		this.customerId = customerId;
 	}
 
@@ -52,6 +68,14 @@ public class Account {
 
 	public void setAccountType(AccountType accountType) {
 		this.accountType = accountType;
+	}
+
+	public AccountStatus getAccountStatus() {
+		return accountStatus;
+	}
+
+	public void setAccountStatus(AccountStatus accountStatus) {
+		this.accountStatus = accountStatus;
 	}
 
 	public BigDecimal getAccountBalance() {
@@ -70,14 +94,6 @@ public class Account {
 		this.approved = approved;
 	}
 
-	public long getAccountNumber() {
-		return accountNumber;
-	}
-
-	public void setAccountNumber(long accountNumber) {
-		this.accountNumber = accountNumber;
-	}
-
 	public Date getDateOfCreation() {
 		return dateOfCreation;
 	}
@@ -85,13 +101,4 @@ public class Account {
 	public void setDateOfCreation(Date dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
 	}
-
-	public long getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(long customerId) {
-		this.customerId = customerId;
-	}
-
 }

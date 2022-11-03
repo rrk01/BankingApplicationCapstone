@@ -24,8 +24,10 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@NotBlank(message = "SSN CANNOT BE BLANK")
-	@Size(min = 9, max = 9)
+
+	//@NotBlank(message = "SSN CANNOT BE BLANK") /////////////////////////////////unknown errors when register method is invoked
+	//@Size(min = 9, max = 9) @size can only be used on string or collection ect.
+
 	@Column(name="ssn")
 	private long ssn;
 	@Column(name="user_name")
@@ -42,7 +44,8 @@ public class Customer {
 	private String secretQuestion;
 	@Column(name="secret_answer")
 	private String secretAnswer;
-	
+	@Column(name="status")
+	private CustomerStatus status;
 	public Customer() {
 		super();
 	}
@@ -50,7 +53,7 @@ public class Customer {
 	public Customer(long id, @NotBlank(message = "SSN CANNOT BE BLANK") @Size(min = 9, max = 9) long ssn,
 			String userName, @NotBlank(message = "FULLNAME CANNOT BE EMPTY!") String fullName, String password,
 			@Size(min = 8, max = 12, message = "PHONE NUMBER CAN BE 8-12 DIGITS") String phone, String secretQuestion,
-			String secretAnswer) {
+			String secretAnswer, CustomerStatus status) {
 		super();
 		this.id = id;
 		this.ssn = ssn;
@@ -60,6 +63,7 @@ public class Customer {
 		this.phone = phone;
 		this.secretQuestion = secretQuestion;
 		this.secretAnswer = secretAnswer;
+		this.status=status;
 	}
 
 	public long getId() {
@@ -69,15 +73,7 @@ public class Customer {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	public long getSsn() {
-		return ssn;
-	}
-
-	public void setSsn(long ssn) {
-		this.ssn = ssn;
-	}
-
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -124,6 +120,21 @@ public class Customer {
 
 	public void setSecretAnswer(String secretAnswer) {
 		this.secretAnswer = secretAnswer;
+	}
+
+	public long getSSN() {
+		return this.ssn;
+	}
+
+	public void setSSN(int sSN) {
+		this.ssn = sSN;
+	}
+	public CustomerStatus getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(CustomerStatus status) {
+		this.status = status;
 	}
 
 	

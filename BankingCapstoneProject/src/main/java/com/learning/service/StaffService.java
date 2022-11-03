@@ -3,6 +3,7 @@ package com.learning.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class StaffService {
 		return staffRepo.save(staff);
 	}
 	
-	public Account getParticularAccount() {
-		return staffRepo.getParticularAccount();
+	public Account getParticularAccount(long accountNumber) {
+		return staffRepo.getParticularAccount(accountNumber);
 	}
 	
 	public List<Beneficiary> getAllBeneficiary() {
@@ -36,11 +37,7 @@ public class StaffService {
 	public List<Account> getAccountsNotApproved(){
 		return staffRepo.getAccountsNotApproved();
 	}
-
-	public Account save(Account accountDetails) {
-		return staffRepo.save(accountDetails);
-	}
-
+	
 	public List<Customer> getCustomer() {
 		return staffRepo.getCustomer();
 	}
@@ -48,6 +45,7 @@ public class StaffService {
 	public Customer getCustomerById(long customerId) {
 		return staffRepo.getCustomerById(customerId);
 	}
+
 	
 	// Enable / Disable 
 //	public Staff enableOrDisableCustomerMember(long customerId) {

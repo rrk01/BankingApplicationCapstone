@@ -68,4 +68,6 @@ public class CustomerController {
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
+	
+	// Transfer? 
 }
