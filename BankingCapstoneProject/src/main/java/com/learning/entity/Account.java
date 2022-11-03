@@ -17,7 +17,7 @@ public class Account {
  * dateOfCreation: date/time,
  * customerId: Number
  */
-	@Column(name="account_type")
+	@Column(name="account_type") 
 	private AccountType accountType;
 	@Column(name="account_status")
 	private AccountStatus accountStatus;
@@ -29,9 +29,9 @@ public class Account {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long accountNumber;
 
-	private accounttype accountType;
-	private float accountBalance;
-	private boolean approved;
+//	private accounttype accountType;
+//	private float accountBalance;
+//	private boolean approved;
   
   @Column(name="creation_date")
 	private Date dateOfCreation;
