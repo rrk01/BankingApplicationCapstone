@@ -62,6 +62,7 @@ public class StaffController {
 			account.setApproved(true);
 		}
 		customerService.saveApproval(account);
+		return new Account();
 	}
 
 	@GetMapping("/{customerId}/account")
@@ -120,21 +121,21 @@ public class StaffController {
 	}
 
 	@PutMapping("/customer/enable/{customerId}")
-	public ResponseEntity<Customer> updateCustomerEnable(@PathVariable("customerId") long customerId) {
+	public ResponseEntity<Customer> updateCustomerActive(@PathVariable("customerId") long customerId) {
 		Customer updateCustomer = customerRepo.findById(customerId)
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 
-		updateCustomer.setStatus(CustomerStatus.ENABLE);
+		updateCustomer.setStatus(CustomerStatus.ACTIVE);
 		staffRepo.saveCustomerEnable(customerId, updateCustomer.getStatus());
 		return ResponseEntity.ok(updateCustomer);
 	}
 
 	@PutMapping("/customer/disable/{customerId}")
-	public ResponseEntity<Customer> updateCustomerDisable(@PathVariable("customerId") long customerId) {
+	public ResponseEntity<Customer> updateCustomerInactive(@PathVariable("customerId") long customerId) {
 		Customer updateCustomer = customerRepo.findById(customerId)
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 
-		updateCustomer.setStatus(CustomerStatus.DISABLE);
+		updateCustomer.setStatus(CustomerStatus.INACTIVE);
 		staffRepo.saveCustomerDisable(customerId, updateCustomer.getStatus());
 		return ResponseEntity.ok(updateCustomer);
 	}

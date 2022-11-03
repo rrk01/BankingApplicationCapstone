@@ -6,7 +6,6 @@ import javax.persistence.GenerationType;
 
 import javax.persistence.Table;
 import javax.persistence.Id;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Table
