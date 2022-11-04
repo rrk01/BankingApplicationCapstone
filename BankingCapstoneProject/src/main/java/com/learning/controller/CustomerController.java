@@ -49,6 +49,7 @@ public class CustomerController {
 	@Autowired
 	AccountRepo accountRepo;
 	
+	//New for login
 	@GetMapping("/getcustomer")
 	public List<Customer> getCustomers() {
 		return customerService.getCustomers();
