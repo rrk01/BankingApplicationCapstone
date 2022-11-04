@@ -1,9 +1,14 @@
 package com.learning.controller;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
@@ -20,56 +25,86 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 import com.learning.entity.Account;
+import com.learning.entity.AccountStatus;
+import com.learning.entity.AccountType;
+
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.repo.CustomerRepo;
 import com.learning.service.CustomerService;
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/api/customer")
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/register")
-	public Customer registerCustomer(@Valid @RequestBody Customer customer) {
-		return customerService.registerCustomer(customer);
+	public Customer registerCustomer(@RequestBody Customer customer) {
+		 customerService.registerCustomer(customer);
+		 return new Customer(customer.getId(), 0, customer.getUserName(), customer.getFullName(), customer.getPassword(), null,null, null, null);
 	}
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/{id}/account")
-	public Account createCustomerAccount(@Valid @PathVariable("id") long id,@RequestBody Account account) {
-		return customerService.createCustomerAccount(id, account);
+	public Account createCustomerAccount(@Valid @PathVariable long id,@RequestBody Account account) {
+		/*accountType:Enum(SB/CA), accountBalance:Number, approved: String -no (default)*/
+		customerService.createCustomerAccount(id, account);
+		return new Account(0, 0, account.getAccountType(), null, account.getAccountBalance(), account.isApproved(), null);
+	
 	}
+
 	
 	@GetMapping("/{id}")
-	public List<Object> getCustomer(@Valid @PathVariable("id") long id) {
-		return customerService.getCustomer(id);
+	public Customer getCustomer(@Valid @PathVariable("id") long id) {
+		return customerService.findCustomerById(id);
 	}
 	
-	@GetMapping("/getcustomer")
+	/*@GetMapping("/getcustomer")
 	public List<Customer> getCustomers() {
 		return customerService.getCustomers();
-	}
+
+	}*/
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PutMapping("/{id}")
 	public Customer updateCustomer(@Valid @RequestBody Customer customer, @PathVariable("id") long id) {
-		return customerService.updateCustomer(customer,id);
+		customerService.updateCustomer(customer,id);
+		Customer updatedcustomer=customerService.findCustomerById(id);
+		return new Customer(updatedcustomer.getId(), customer.getSSN(), null, customer.getFullName(), null, customer.getPhone()
+				,updatedcustomer.getSecretQuestion(), updatedcustomer.getSecretAnswer(), null);
 	}
+
 	@GetMapping("/{custID}/account/{acctID}")
 	public Account getCustomerAccount(@Valid @PathVariable("custID") long custID, @PathVariable("acctID") long acctID) {
+
 		return customerService.findCustomerAccount(custID,acctID);
 	}
+
+	
+	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/{custID}/beneficiary")
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
-		return customerService.addBeneficiary(beneficiary,custID);
+		customerService.addBeneficiary(beneficiary,custID);
+		return new Beneficiary(0, beneficiary.getAccountNumber(),0, beneficiary.getAccountType(), null,
+				beneficiary.getApproved(), false,null);
 	}
+	
 	@GetMapping("/{custID}/beneficiary")
 	public List<Beneficiary> getBeneficiary(@Valid @PathVariable("custID") long custID) {
 		return customerService.getBeneficiary(custID);
+
 	}
+  
 	@DeleteMapping("/{custID}/beneficiary/{beneficiaryID}")
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		return customerService.deleteBeneficiary(beneficiaryID,custID);
 	}
 	
-	// Transfer? 
+	// TODO - CUSTOMER TRANSFER (?)
 }

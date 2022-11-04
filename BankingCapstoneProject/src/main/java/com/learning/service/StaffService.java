@@ -9,6 +9,7 @@ import com.learning.entity.AccountStatus;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.Staff;
+import com.learning.entity.StaffStatus;
 import com.learning.repo.StaffRepo;
 
 @Service
@@ -55,9 +56,10 @@ public class StaffService {
 			staffObject.setStatus(AccountStatus.DISABLED);
 		}else if(staffObject.getStatus()==AccountStatus.DISABLED) {
 			staffObject.setStatus(AccountStatus.ENABLED);
+      // Approve beneficiary
 		}
 		staffRepo.save(staffObject);
 		return new Staff(staffObject.getId(), null, null, null, staffObject.getStatus()) ;
 	}
-	// Approve beneficiary
+	
 }

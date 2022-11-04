@@ -1,7 +1,11 @@
 package com.learning.controller;
 
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +14,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.CustomerStatus;
 import com.learning.entity.Transfer;
+
+/*import com.fasterxml.jackson.annotation.JsonInclude;
+import com.learning.entity.Account;
+import com.learning.entity.AccountStatus;
+import com.learning.entity.AccountType;
+import com.learning.entity.Beneficiary;*/
+
 import com.learning.repo.AccountRepo;
 import com.learning.repo.BeneficiaryRepo;
 import com.learning.repo.CustomerRepo;
@@ -26,6 +38,7 @@ enum status {
 	ENABLE, DISABLE
 }
 
+@CrossOrigin
 @RestController
 @CrossOrigin
 @RequestMapping("/api/staff")
@@ -49,7 +62,7 @@ public class StaffController {
 			account.setApproved(true);
 		}
 		customerService.saveApproval(account);
-		return account;
+		return new Account();
 	}
 
 	@GetMapping("/{customerId}/account")
@@ -67,7 +80,7 @@ public class StaffController {
 		return staffService.getAllBeneficiary();
 	}
 
-//	------------------------------------------------------------------------------------------
+/*//	------------------------------------------------------------------------------------------
 	// TEST CALL
 	@GetMapping("/beneficiaryApproved") // (TESTING PURPOSE TO SEE IF they got approved
 	public List<Beneficiary> getAllBeneficiaryApproved() {
@@ -83,8 +96,11 @@ public class StaffController {
 		return ResponseEntity.ok(updateBeneficiary);
 	}
 
+
 //	------------------------------------------------------------------------------------------
 	// List all the accounts to be approved
+//	------------------------------------------------------------------------------------------*/
+
 	@GetMapping("/accounts/approved")
 	public List<Account> getAccountsNotApproved() {
 		return staffService.getAccountsNotApproved();
@@ -107,7 +123,7 @@ public class StaffController {
 	}
 
 	@PutMapping("/customer/enable/{customerId}")
-	public ResponseEntity<Customer> updateCustomerEnable(@PathVariable("customerId") long customerId) {
+	public ResponseEntity<Customer> updateCustomerActive(@PathVariable("customerId") long customerId) {
 		Customer updateCustomer = customerRepo.findById(customerId)
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 
@@ -117,7 +133,7 @@ public class StaffController {
 	}
 
 	@PutMapping("/customer/disable/{customerId}")
-	public ResponseEntity<Customer> updateCustomerDisable(@PathVariable("customerId") long customerId) {
+	public ResponseEntity<Customer> updateCustomerInactive(@PathVariable("customerId") long customerId) {
 		Customer updateCustomer = customerRepo.findById(customerId)
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.learning.entity.Account;
+import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.repo.AccountRepo;
 import com.learning.repo.BeneficiaryRepo;
@@ -24,11 +25,12 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepo customerRepo;
 	@Autowired
-	private AccountRepo accountRepo;
-	@Autowired
-	private BeneficiaryRepo beneficiaryRepo;////////////////////////////////////////////////?????????????????????????????????????????????????????????
+	private BeneficiaryRepo beneficiaryRepo;
 	private List<Beneficiary> beneficiaryList = new ArrayList<Beneficiary>();
+  @Autowired
+	private AccountRepo accountRepo;
 	
+	List<Beneficiary> beneficiariesList=new ArrayList<>();
 	public Customer registerCustomer(Customer customer) {
 		return customerRepo.save(customer);
 	}
@@ -47,19 +49,18 @@ public class CustomerService {
 			}
 		}
 		return account;
+
 	}
 	public List<Account> findAllCustomerAccount(long custID) {
 		return accountRepo.findAll().stream().filter(a -> a.getCustomerId() == custID).collect(Collectors.toList());
 	}
-	public List<Object> getCustomer(long id) {
-		return customerRepo.getCustomer(id);
-	}
-	public List<Customer> getCustomers() {
-		return customerRepo.findAll();
+
+	public Customer findCustomerById(long id) {
+		Optional<Customer> CustomerObject=customerRepo.findById(id);
+		return CustomerObject.get();
 	}
 	public Customer updateCustomer(Customer cust, long id) {
 		Customer customer= customerRepo.getById(id);
-		
 		customer.setId(cust.getId());
 		customer.setFullName(cust.getFullName());
 		customer.setPassword(cust.getPassword());
@@ -70,11 +71,12 @@ public class CustomerService {
 		
 		return customerRepo.save(customer);
 	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
 	public Beneficiary addBeneficiary(Beneficiary beneficiary, long custID) {
 		beneficiary.setApproved(false);
 		return beneficiaryRepo.save(beneficiary);
 	}
+
 	public List<Beneficiary> getBeneficiary(long custID) {
 		beneficiaryList.clear();
 		List<Account> validAccounts=accountRepo.getValidAccounts(custID); // CHECK IF ITS ACTIVE (approved)
@@ -83,9 +85,11 @@ public class CustomerService {
 		}
 		return beneficiaryList;
 	}
+
 	public String deleteBeneficiary(@Valid @PathVariable("beneficiaryID") long beneficiaryID, @PathVariable("custID") long custID) {
 		//return beneficiaryRepo.deleteCustomersBeneficiary(beneficiaryID,custID);//////// OVERKILL
 		try {
+
 			if(beneficiaryRepo.getById(beneficiaryID).getCustomerId()==custID) {
 				beneficiaryRepo.deleteById(beneficiaryID);
 				return "BENEFICIARY DELETED";
@@ -98,3 +102,4 @@ public class CustomerService {
 		
 	}
 }
+
