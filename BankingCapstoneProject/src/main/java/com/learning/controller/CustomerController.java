@@ -29,18 +29,17 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 import com.learning.entity.Account;
-
+import com.learning.entity.AccountStatus;
 import com.learning.entity.AccountType;
 
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
-import com.learning.entity.Beneficiary.accounttype;
 import com.learning.repo.CustomerRepo;
 import com.learning.service.CustomerService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/customer")
+@RequestMapping("/api/customer")
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
@@ -56,21 +55,21 @@ public class CustomerController {
 	public Account createCustomerAccount(@Valid @PathVariable long id,@RequestBody Account account) {
 		/*accountType:Enum(SB/CA), accountBalance:Number, approved: String -no (default)*/
 		customerService.createCustomerAccount(id, account);
-		return new Account(account.getAccountType(), null ,account.getAccountBalance(), account.isApproved(), 0,
-				null, 0);
+		return new Account(0, 0, account.getAccountType(), null, account.getAccountBalance(), account.isApproved(), null);
+	
 	}
 
 	
 	@GetMapping("/{id}")
-	public List<Object> getCustomer(@Valid @PathVariable("id") long id) {
-		return customerService.getCustomer(id);
+	public Customer getCustomer(@Valid @PathVariable("id") long id) {
+		return customerService.findCustomerById(id);
 	}
 	
-	@GetMapping("/getcustomer")
+	/*@GetMapping("/getcustomer")
 	public List<Customer> getCustomers() {
 		return customerService.getCustomers();
 
-	}
+	}*/
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PutMapping("/{id}")
@@ -93,7 +92,7 @@ public class CustomerController {
 	public Beneficiary addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
 		customerService.addBeneficiary(beneficiary,custID);
 		return new Beneficiary(0, beneficiary.getAccountNumber(),0, beneficiary.getAccountType(), null,
-				beneficiary.getApproved(), null,null);
+				beneficiary.getApproved(), false,null);
 	}
 	
 	@GetMapping("/{custID}/beneficiary")

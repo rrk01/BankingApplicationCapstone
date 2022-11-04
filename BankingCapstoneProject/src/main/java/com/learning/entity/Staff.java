@@ -6,28 +6,24 @@ import javax.persistence.GenerationType;
 
 import javax.persistence.Table;
 import javax.persistence.Id;
-import org.springframework.data.annotation.Id;
 
 @Entity
-@Table
+@Table(name="staff")
 public class Staff {
-	public enum status {
-		ENABLE,DISABLE
-	}
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long id;
 	private String name;
 	private String userName;
-	private String firstName;
 	private String password;
-	private status status;
+	private AccountStatus status;
 	
 	public Staff() {
 		super();
 	}
 
-	public Staff(long id, String name, String userName, String password, status status) {
+
+	public Staff(long id, String name, String userName, String password, AccountStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -68,11 +64,11 @@ public class Staff {
 		this.password = password;
 	}
 
-	public status getStatus() {
+	public AccountStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(status status) {
+	public void setStatus(AccountStatus status) {
 		this.status = status;
 	}
 	

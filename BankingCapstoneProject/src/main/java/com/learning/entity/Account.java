@@ -2,8 +2,6 @@ package com.learning.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Optional;
-
 import javax.persistence.*;
 
 @Entity
@@ -19,21 +17,16 @@ public class Account {
 	private long accountNumber;
 	@Column(name = "customer_id")
 	private long customerId;
-	/*@Column(name = "account_type") // Fix this enum stuff, naming convention seems indecisive -
-	private AccountType accountType;*/
+	@Column(name = "account_type") // Fix this enum stuff, naming convention seems indecisive -
+	private AccountType accountType;
 	@Column(name = "account_status")
 	private AccountStatus accountStatus;
 	@Column(name = "account_balance")
 	private BigDecimal accountBalance;
 	@Column(name="approved")
 	private boolean approved;
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private long accountNumber;
 
 //	private accounttype accountType;
-	@Column(name = "approved")
-	private boolean approved;
 	@Column(name = "creation_date")
 	private Date dateOfCreation;
 

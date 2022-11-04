@@ -46,8 +46,8 @@ public class AdminController {
 	}
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PutMapping("/staff/{id}")
-	public Staff disableOrEnableStaff(@PathVariable String username) {
-		return staffService.enableOrDisableStaffMember(username);
+	public Staff disableOrEnableStaff(@PathVariable  long id) {
+		return staffService.enableOrDisableStaffMember(id);
 	}
 
 } 
