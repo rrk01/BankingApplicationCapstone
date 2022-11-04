@@ -1,7 +1,6 @@
 package com.learning.entity;
-/*
- * @author Dick
- */
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,26 +9,26 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="transfers")
-public class Transfer {
+public class Transfer { // CUSTOMER TRANSFERS from type to type.
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	Long from;
-	Long to;
-	String reason;
-	Boolean isApproved;
+	private long id;
+	private long fromAccount;
+	private long toAccount;
+	private String t_reason;
+	private boolean approved;
 	
 	public Transfer() {
 		super();
 	}
 
-	public Transfer(Long id, Long from, Long to, String reason, Boolean isApproved) { //Change 'from' and 'to' variable names ??
+	public Transfer(long id, long fromAccount, long toAccount, String t_reason, boolean approved) { //Change 'from' and 'to' variable names ??
 		super();
 		this.id = id;
-		this.from = from;
-		this.to = to;
-		this.reason = reason;
-		this.isApproved = isApproved;
+		this.fromAccount = fromAccount;
+		this.toAccount = toAccount;
+		this.t_reason = t_reason;
+		this.approved = approved;
 	}
 
 	public Long getId() {
@@ -40,36 +39,36 @@ public class Transfer {
 		this.id = id;
 	}
 
-	public Long getFrom() {
-		return from;
+	public long getFrom() {
+		return fromAccount;
 	}
 
-	public void setFrom(Long from) {
-		this.from = from;
+	public void setFrom(long fromAccount) {
+		this.fromAccount = fromAccount;
 	}
 
-	public Long getTo() {
-		return to;
+	public long getTo() {
+		return toAccount;
 	}
 
-	public void setTo(Long to) {
-		this.to = to;
+	public void setTo(long toAccount) {
+		this.toAccount = toAccount;
 	}
 
 	public String getReason() {
-		return reason;
+		return t_reason;
 	}
 
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setReason(String t_reason) {
+		this.t_reason = t_reason;
 	}
 
-	public Boolean getIsApproved() {
-		return isApproved;
+	public boolean getIsApproved() {
+		return approved;
 	}
 
-	public void setIsApproved(Boolean isApproved) {
-		this.isApproved = isApproved;
+	public void setIsApproved(boolean approved) {
+		this.approved = approved;
 	}
 	
 }

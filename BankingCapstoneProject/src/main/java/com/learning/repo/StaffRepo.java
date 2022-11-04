@@ -20,7 +20,7 @@ import com.learning.entity.Staff;
 public interface StaffRepo extends JpaRepository<Staff,Long> {
 	
 //	#1 
-	@Query(value="Select a.accountNumber, c.fullName, a.accountBalance from account a, customers c JOIN transaction t ON t.account_number =:accountNumber where c.id = a.customer_id;", nativeQuery=true)
+	@Query(value="Select a.accountNumber, c.fullName, a.accountBalance from account a, customers c JOIN transaction t ON t.account_number =:accountNumber where c.id = a.customer_id", nativeQuery=true)
 	public Account getParticularAccount(@Param("accountNumber") long accountNumber); 
 	
 //	#2
