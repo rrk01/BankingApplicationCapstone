@@ -29,6 +29,10 @@ public class CustomerService {
 	private List<Beneficiary> beneficiaryList = new ArrayList<Beneficiary>();
   @Autowired
 	private AccountRepo accountRepo;
+  
+  	List<Customer> getCustomers() {
+  		return customerRepo.findAll();
+  	}
 	
 	List<Beneficiary> beneficiariesList=new ArrayList<>();
 	public Customer registerCustomer(Customer customer) {

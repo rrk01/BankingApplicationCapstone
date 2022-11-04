@@ -49,6 +49,11 @@ public class CustomerController {
 	@Autowired
 	AccountRepo accountRepo;
 	
+	@GetMapping(/getcustomer)
+	public List<Customer> getCustomers() {
+		return customerService.getCustomers();
+	}
+	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/register")
 	public Customer registerCustomer(@RequestBody Customer customer) {
