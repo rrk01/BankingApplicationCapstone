@@ -30,11 +30,14 @@ public class CustomerService {
   @Autowired
 	private AccountRepo accountRepo;
   
-  	List<Customer> getCustomers() {
-  		return customerRepo.findAll();
-  	}
+  	
 	
 	List<Beneficiary> beneficiariesList=new ArrayList<>();
+	
+	
+	public List<Customer> getCustomers() {
+  		return customerRepo.findAll();
+  	}
 	public Customer registerCustomer(Customer customer) {
 		return customerRepo.save(customer);
 	}

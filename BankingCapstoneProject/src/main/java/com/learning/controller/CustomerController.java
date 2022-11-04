@@ -49,7 +49,7 @@ public class CustomerController {
 	@Autowired
 	AccountRepo accountRepo;
 	
-	@GetMapping(/getcustomer)
+	@GetMapping("/getcustomer")
 	public List<Customer> getCustomers() {
 		return customerService.getCustomers();
 	}
