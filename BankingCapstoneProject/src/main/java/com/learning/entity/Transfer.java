@@ -1,6 +1,8 @@
 package com.learning.entity;
 
 
+import java.math.BigDecimal;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,66 +11,76 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="transfers")
-public class Transfer { // CUSTOMER TRANSFERS from type to type.
+public class Transfer { // CUSTOMER(OR)Staff TRANSFERS from type to type.
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private long fromAccount;
 	private long toAccount;
+	private BigDecimal amount;
 	private String t_reason;
-	private boolean approved;
+	private String transfer_by;
 	
 	public Transfer() {
 		super();
 	}
 
-	public Transfer(long id, long fromAccount, long toAccount, String t_reason, boolean approved) { //Change 'from' and 'to' variable names ??
+	public Transfer(long id, long fromAccount, long toAccount, BigDecimal amount, String t_reason, String transfer_by) {
 		super();
 		this.id = id;
 		this.fromAccount = fromAccount;
 		this.toAccount = toAccount;
+		this.amount = amount;
 		this.t_reason = t_reason;
-		this.approved = approved;
+		this.transfer_by = transfer_by;
 	}
 
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
-	public long getFrom() {
+	public long getFromAccount() {
 		return fromAccount;
 	}
 
-	public void setFrom(long fromAccount) {
+	public void setFromAccount(long fromAccount) {
 		this.fromAccount = fromAccount;
 	}
 
-	public long getTo() {
+	public long getToAccount() {
 		return toAccount;
 	}
 
-	public void setTo(long toAccount) {
+	public void setToAccount(long toAccount) {
 		this.toAccount = toAccount;
 	}
 
-	public String getReason() {
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	public String getT_reason() {
 		return t_reason;
 	}
 
-	public void setReason(String t_reason) {
+	public void setT_reason(String t_reason) {
 		this.t_reason = t_reason;
 	}
 
-	public boolean getIsApproved() {
-		return approved;
+	public String getTransfer_by() {
+		return transfer_by;
 	}
 
-	public void setIsApproved(boolean approved) {
-		this.approved = approved;
+	public void setTransfer_by(String transfer_by) {
+		this.transfer_by = transfer_by;
 	}
 	
 }

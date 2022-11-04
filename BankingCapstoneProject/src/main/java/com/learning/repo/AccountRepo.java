@@ -8,11 +8,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.learning.entity.Account;
 
-@Repository
-@Transactional
+@Repository // might not be required since it extends to JPARepo
+@Transactional 
 public interface AccountRepo extends JpaRepository<Account,Long> {
 	@Modifying
 	@Query(value="Select * from Account where id=:id", nativeQuery=true)

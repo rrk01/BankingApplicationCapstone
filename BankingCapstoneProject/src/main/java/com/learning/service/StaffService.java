@@ -24,31 +24,31 @@ public class StaffService {
 		return staffRepo.getParticularAccount(accountNumber);
 	}
 	
-//	public List<Beneficiary> getAllBeneficiary() {
-//		return staffRepo.getAllBeneficiary(); 
-//	}
-//	
-//	public List<Beneficiary> getAllBeneficiaryApproved() {
-//		return staffRepo.getAllBeneficiary(); 
-//	}
-//	
-//	public List<Account> getAccountsNotApproved(){
-//		return staffRepo.getAccountsNotApproved();
-//	}
-//	
-//	public List<Customer> getCustomer() {
-//		return staffRepo.getCustomer();
-//	}
-//
-//	public Customer getCustomerById(long customerId) {
-//		return staffRepo.getCustomerById(customerId);
-//	}
-//
-//	
+	public List<Beneficiary> getAllBeneficiary() {
+		return staffRepo.getAllBeneficiary(); 
+	}
+	
+	public List<Beneficiary> getAllBeneficiaryApproved() {
+		return staffRepo.getAllBeneficiary(); 
+	}
+	
+	public List<Account> getAccountsNotApproved(){
+		return staffRepo.getAccountsNotApproved();
+	}
+	
+	public List<Customer> getCustomer() {
+		return staffRepo.getCustomer();
+	}
+
+	public Customer getCustomerById(long customerId) {
+		return staffRepo.getCustomerById(customerId);
+	}
+
 	// Enable / Disable 
 	public List<Staff> listAllStaffMembers() {
 		return staffRepo.findAll();
 	}
+	
 	public Staff enableOrDisableStaffMember(long id) {
 		Staff staffObject=staffRepo.findById(id).get();
 		if(staffObject.getStatus()==AccountStatus.ENABLED) {
