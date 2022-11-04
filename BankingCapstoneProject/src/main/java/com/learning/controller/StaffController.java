@@ -35,10 +35,10 @@ import com.learning.service.CustomerService;
 import com.learning.service.StaffService;
 
 enum status {
-	ENABLE, DISABLE
+	ENABLE, DISABLE;
 }
 
-@CrossOrigin
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/staff")
@@ -127,7 +127,7 @@ public class StaffController {
 		Customer updateCustomer = customerRepo.findById(customerId)
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 
-		updateCustomer.setStatus(CustomerStatus.ENABLE);
+		updateCustomer.setStatus(CustomerStatus.ACTIVE);
 		customerRepo.save(updateCustomer); 
 		return ResponseEntity.ok(updateCustomer);
 	}
@@ -137,7 +137,7 @@ public class StaffController {
 		Customer updateCustomer = customerRepo.findById(customerId)
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 
-		updateCustomer.setStatus(CustomerStatus.DISABLE);
+		updateCustomer.setStatus(CustomerStatus.INACTIVE);
 		customerRepo.save(updateCustomer); 
 		return ResponseEntity.ok(updateCustomer);
 	}
