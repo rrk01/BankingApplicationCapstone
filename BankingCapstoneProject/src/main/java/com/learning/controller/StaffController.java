@@ -7,9 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,12 +19,13 @@ import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.CustomerStatus;
+import com.learning.entity.Transfer;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+/*import com.fasterxml.jackson.annotation.JsonInclude;
 import com.learning.entity.Account;
 import com.learning.entity.AccountStatus;
 import com.learning.entity.AccountType;
-import com.learning.entity.Beneficiary;
+import com.learning.entity.Beneficiary;*/
 
 import com.learning.repo.AccountRepo;
 import com.learning.repo.BeneficiaryRepo;
@@ -36,15 +35,16 @@ import com.learning.service.CustomerService;
 import com.learning.service.StaffService;
 
 enum status {
-	ENABLE, DISABLE
+	ENABLE, DISABLE;
 }
 
-@CrossOrigin
+
 @RestController
+@CrossOrigin
 @RequestMapping("/api/staff")
 public class StaffController {
 
-	@Autowired
+	@Autowired 
 	StaffService staffService;
 	@Autowired
 	BeneficiaryRepo beneficiaryRepo;
@@ -70,7 +70,7 @@ public class StaffController {
 		return customerService.findAllCustomerAccount(customerId);
 	}
 
-	@GetMapping("/account/{accountNumber}") // GET the statement of particular account
+	@GetMapping("/account/{accountNumber}") // GET the statement of particular (transactions) account
 	public Account getParticularAccount(@PathVariable("accountNumber") long accountNumber) {
 		return staffService.getParticularAccount(accountNumber);
 	}
@@ -82,23 +82,25 @@ public class StaffController {
 
 /*//	------------------------------------------------------------------------------------------
 	// TEST CALL
-	@GetMapping("/beneficiaryApproved") // GETS beneficiary that need to be approved (TESTING PURPOSE TO SEE IF they got
-										// approved)
+	@GetMapping("/beneficiaryApproved") // (TESTING PURPOSE TO SEE IF they got approved
 	public List<Beneficiary> getAllBeneficiaryApproved() {
 		return staffService.getAllBeneficiaryApproved();
 	}
-
-	@PutMapping("/beneficiary/{beneficiaryAcNo}/{customerId}") // APPROVES THE BENE Which were added by Customer
-	public ResponseEntity<Beneficiary> updateBeneficiary(@PathVariable("beneficiaryAcNo") long beneficiaryAcNo,
-			@PathVariable("customerId") long customerId) {
-		Beneficiary updateBeneficiary = beneficiaryRepo.findBeneficiary(beneficiaryAcNo, customerId)
+	
+	@PutMapping("/beneficiary/{beneficiaryAcNo}") // APPROVES THE BENE Which were added by Customer
+	public ResponseEntity<Beneficiary> updateBeneficiary(@PathVariable("beneficiaryAcNo") long beneficiaryAcNo) {
+		Beneficiary updateBeneficiary = beneficiaryRepo.findById(beneficiaryAcNo)
 				.orElseThrow(() -> new RuntimeException("Beneficiary Not exisit with id: " + beneficiaryAcNo));
 		updateBeneficiary.setApproved(true);
 		beneficiaryRepo.save(updateBeneficiary);
 		return ResponseEntity.ok(updateBeneficiary);
 	}
 
+
+//	------------------------------------------------------------------------------------------
+	// List all the accounts to be approved
 //	------------------------------------------------------------------------------------------*/
+
 	@GetMapping("/accounts/approved")
 	public List<Account> getAccountsNotApproved() {
 		return staffService.getAccountsNotApproved();
@@ -107,11 +109,11 @@ public class StaffController {
 	@PutMapping("/accounts/approved/{accountNumber}/{customerId}")
 	public ResponseEntity<Account> updateAccountType(@PathVariable("accountNumber") long accountNumber,
 			@PathVariable("customerId") long customerId) {
-		Account updateAccountType = staffRepo.getParticularAccount(accountNumber, customerId)
+		Account updateAccountType = staffRepo.getParticularAccountType(accountNumber, customerId)
 				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + accountNumber));
 
 		updateAccountType.setApproved(true);
-		staffRepo.saveAccount(updateAccountType.isApproved());
+		accountRepo.save(updateAccountType);
 		return ResponseEntity.ok(updateAccountType);
 	}
 
@@ -126,7 +128,7 @@ public class StaffController {
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 
 		updateCustomer.setStatus(CustomerStatus.ACTIVE);
-		staffRepo.saveCustomerEnable(customerId, updateCustomer.getStatus());
+		customerRepo.save(updateCustomer); 
 		return ResponseEntity.ok(updateCustomer);
 	}
 
@@ -136,7 +138,7 @@ public class StaffController {
 				.orElseThrow(() -> new RuntimeException("Customer Not exisit with id: " + customerId));
 
 		updateCustomer.setStatus(CustomerStatus.INACTIVE);
-		staffRepo.saveCustomerDisable(customerId, updateCustomer.getStatus());
+		customerRepo.save(updateCustomer); 
 		return ResponseEntity.ok(updateCustomer);
 	}
 
@@ -147,21 +149,19 @@ public class StaffController {
 
 	@Autowired
 	AccountRepo accountRepo;
-
-	@PutMapping("/transfer/{fromAccNumber}")
-	public ResponseEntity<Account> updateAccountBalance(@PathVariable("fromAccNumber") long fromAccNumber,
-			@RequestBody Account accountDetails) {
-		Account updateAccountBalance = accountRepo.findById(fromAccNumber)
-				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + fromAccNumber));
+	@PutMapping("/transfer/")
+	public ResponseEntity<Account> updateAccountBalance(@RequestBody Transfer transfer) {
+		Account updateAccountBalance = accountRepo.findById(transfer.getFromAccount())
+				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + transfer.getFromAccount()));
 		
-		Account updateAccountBalance_2 = accountRepo.findById(accountDetails.getAccountNumber())
-				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + fromAccNumber));
+		Account updateAccountBalance_2 = accountRepo.findById(transfer.getToAccount())
+				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + transfer.getToAccount()));
 
-		updateAccountBalance.setAccountBalance(updateAccountBalance.getAccountBalance().subtract(accountDetails.getAccountBalance()));
-		updateAccountBalance_2.setAccountBalance(accountDetails.getAccountBalance().add(updateAccountBalance.getAccountBalance()));
+		updateAccountBalance.setAccountBalance(updateAccountBalance.getAccountBalance().subtract(transfer.getAmount()));
+		updateAccountBalance_2.setAccountBalance(updateAccountBalance_2.getAccountBalance().add(transfer.getAmount()));
 		
-		staffRepo.updateAccountBalance(updateAccountBalance);
-		staffRepo.updateAccountBalance_2(updateAccountBalance_2);
+		accountRepo.save(updateAccountBalance);
+		accountRepo.save(updateAccountBalance_2); 
 		return ResponseEntity.ok(updateAccountBalance);
 	}
 }

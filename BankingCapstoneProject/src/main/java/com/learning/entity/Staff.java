@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.persistence.Id;
 
 @Entity
-@Table
+@Table(name="staff")
 public class Staff {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -16,13 +16,14 @@ public class Staff {
 	private String name;
 	private String userName;
 	private String password;
-	private StaffStatus status;
+	private AccountStatus status;
 	
 	public Staff() {
 		super();
 	}
 
-	public Staff(long id, String name, String userName, String password, StaffStatus status) {
+
+	public Staff(long id, String name, String userName, String password, AccountStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -63,11 +64,11 @@ public class Staff {
 		this.password = password;
 	}
 
-	public StaffStatus getStatus() {
+	public AccountStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(StaffStatus status) {
+	public void setStatus(AccountStatus status) {
 		this.status = status;
 	}
 	

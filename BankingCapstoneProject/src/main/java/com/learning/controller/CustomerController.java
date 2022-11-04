@@ -42,7 +42,7 @@ import com.learning.service.CustomerService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("api/customer")
+@RequestMapping("/api/customer")
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
