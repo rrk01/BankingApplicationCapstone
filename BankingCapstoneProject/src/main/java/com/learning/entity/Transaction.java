@@ -11,12 +11,12 @@ enum CardType{
 @Entity 
 public class Transaction {
 	@Id
-	Long t_id;
-	Long account_number; // This connects it to the Account. 
-	String t_reason ;// WHAT IS TRANSACTION NAME? CHANGE TO REASON?
-	BigDecimal t_amount;
-	Date t_date;
-	CardType credit_debit;
+	private long t_id;
+	private long account_number; // This connects it to the Account. 
+	private String t_reason ;// WHAT IS TRANSACTION NAME? CHANGE TO REASON?
+	private BigDecimal t_amount;
+	private Date t_date;
+	private CardType credit_debit;
 	
 	public Transaction() {
 		super();

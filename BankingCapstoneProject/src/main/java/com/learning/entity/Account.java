@@ -2,8 +2,6 @@ package com.learning.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.Optional;
-
 import javax.persistence.*;
 
 @Entity
