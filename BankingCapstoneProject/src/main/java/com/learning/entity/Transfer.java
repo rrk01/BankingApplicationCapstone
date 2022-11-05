@@ -24,7 +24,7 @@ public class Transfer { // CUSTOMER(OR)Staff TRANSFERS from type to type.
 	private BigDecimal amount;
 	private String t_reason;
 	private String transfer_by;
-	
+
 	public Transfer() {
 		super();
 	}
