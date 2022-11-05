@@ -68,7 +68,7 @@ public class CustomerService {
 		customer.setSecretQuestion(cust.getSecretQuestion());
 		customer.setSecretAnswer(cust.getSecretAnswer());
 		customer.setUserName(cust.getUserName());
-		
+		customer.setStatus(cust.getStatus());
 		return customerRepo.save(customer);
 	}
   

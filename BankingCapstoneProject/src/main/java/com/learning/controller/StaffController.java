@@ -3,9 +3,11 @@ package com.learning.controller;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
@@ -55,19 +58,49 @@ public class StaffController {
 	@Autowired
 	CustomerService customerService;
 
-	@PutMapping("/{custId}/account/{accountNumber}")
-	public Account approveAccount(@PathVariable("custId") long id, @PathVariable("accountNumber") long accountNumber) {
+	@PutMapping(value="/{custId}/account/{accountNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object>  approveAccount(@PathVariable("custId") long id, @PathVariable("accountNumber") long accountNumber) {
 		Account account = customerService.findCustomerAccount(id, accountNumber);
+		String jsonString="";
 		if (id == account.getCustomerId()) {
 			account.setApproved(true);
+			LinkedHashMap obj = new LinkedHashMap();
+			 try {
+				obj.put("accountNumber", account.getAccountNumber());
+				obj.put("approved", account.isApproved());
+				jsonString=new ObjectMapper().writeValueAsString(obj);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		customerService.saveApproval(account);
-		return new Account();
+		return ResponseEntity.status(HttpStatus.OK).body(jsonString.toString());
 	}
 
-	@GetMapping("/{customerId}/account")
-	public List<Account> getAllAccounts(@PathVariable long customerId) {
-		return customerService.findAllCustomerAccount(customerId);
+	/*
+	 * accountNumber: Integer, accountType:Enum(SB/CA), accountBalance:Number, accountStatus: Enum(Enable/Disable)
+	 */
+	@GetMapping(value="/{customerId}/account",produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> getAllAccounts(@PathVariable long customerId) {
+		customerService.findAllCustomerAccount(customerId);
+		List<Account> allaccounts=customerService.findAllCustomerAccount(customerId);
+		List<String> newlist=new ArrayList<>();
+		String jsonString="";
+		LinkedHashMap obj = new LinkedHashMap();
+		for(int i=0;i<allaccounts.size();i++) {
+			 try {
+				obj.put("accountNumber", allaccounts.get(i).getAccountNumber());
+				obj.put("accountType", allaccounts.get(i).getAccountType());
+				obj.put("accountBalance", allaccounts.get(i).getAccountBalance());
+				obj.put("accountStatus", allaccounts.get(i).getAccountStatus());
+				jsonString=new ObjectMapper().writeValueAsString(obj);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 newlist.add(jsonString);
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(newlist.toString()); 
 	}
 
 	@GetMapping("/account/{accountNumber}") // GET the statement of particular (transactions) account
