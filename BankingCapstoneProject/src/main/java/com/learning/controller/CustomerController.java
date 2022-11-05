@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,6 +35,8 @@ import com.learning.entity.AccountType;
 
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
+import com.learning.entity.Transfer;
+import com.learning.repo.AccountRepo;
 import com.learning.repo.CustomerRepo;
 import com.learning.service.CustomerService;
 
@@ -43,6 +46,14 @@ import com.learning.service.CustomerService;
 public class CustomerController {
 	@Autowired
 	private CustomerService customerService;
+	@Autowired
+	AccountRepo accountRepo;
+	
+	//New for login
+	@GetMapping("/getcustomer")
+	public List<Customer> getCustomers() {
+		return customerService.getCustomers();
+	}
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping("/register")
@@ -107,4 +118,19 @@ public class CustomerController {
 	}
 	
 	// TODO - CUSTOMER TRANSFER (?)
+	@PutMapping("/transfer")
+	public ResponseEntity<Account> updateAccountBalance(@RequestBody Transfer transfer) {
+		Account updateAccountBalance = accountRepo.findById(transfer.getFromAccount())
+				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + transfer.getFromAccount()));
+		
+		Account updateAccountBalance_2 = accountRepo.findById(transfer.getToAccount())
+				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + transfer.getToAccount()));
+
+		updateAccountBalance.setAccountBalance(updateAccountBalance.getAccountBalance().subtract(transfer.getAmount()));
+		updateAccountBalance_2.setAccountBalance(updateAccountBalance_2.getAccountBalance().add(transfer.getAmount()));
+		
+		accountRepo.save(updateAccountBalance);
+		accountRepo.save(updateAccountBalance_2); 
+		return ResponseEntity.ok(updateAccountBalance);
+	}
 }
