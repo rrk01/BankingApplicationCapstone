@@ -34,13 +34,13 @@ public class AdminController {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping(value="/staff",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createStaff(@RequestBody Staff staff) {
-		staffService.createStaffMember(staff);
+		Staff newstaff=staffService.createStaffMember(staff);
 		LinkedHashMap obj = new LinkedHashMap();
 		String jsonString="";
 		 try {
-			obj.put("name", staff.getName());
-			obj.put("username", staff.getUserName());
-			obj.put("password", staff.getPassword());
+			obj.put("name", newstaff.getName());
+			obj.put("username", newstaff.getUserName());
+			obj.put("password", newstaff.getPassword());
 			jsonString=new ObjectMapper().writeValueAsString(obj);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

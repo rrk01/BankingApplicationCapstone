@@ -52,10 +52,10 @@ public class StaffService {
 	
 	public Staff enableOrDisableStaffMember(long id) {
 		Staff staffObject=staffRepo.findById(id).get();
-		if(staffObject.getStatus()==AccountStatus.ENABLED) {
-			staffObject.setStatus(AccountStatus.DISABLED);
-		}else if(staffObject.getStatus()==AccountStatus.DISABLED) {
-			staffObject.setStatus(AccountStatus.ENABLED);
+		if(staffObject.getStatus()==StaffStatus.ENABLED) {
+			staffObject.setStatus(StaffStatus.DISABLED);
+		}else if(staffObject.getStatus()==StaffStatus.DISABLED) {
+			staffObject.setStatus(StaffStatus.ENABLED);
       // Approve beneficiary
 		}
 		staffRepo.save(staffObject);

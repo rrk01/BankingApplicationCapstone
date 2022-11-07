@@ -2,7 +2,13 @@ package com.learning.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
+
 import javax.persistence.*;
+import java.util.*;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "ACCOUNTS")
@@ -27,6 +33,7 @@ public class Account {
 	private boolean approved;
 
 //	private accounttype accountType;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	@Column(name = "creation_date")
 	private Date dateOfCreation;
 
@@ -45,7 +52,6 @@ public class Account {
 		this.accountBalance = accountBalance;
 		this.approved = approved;
 		this.dateOfCreation = dateOfCreation;
-    
 	}
   
 	public long getAccountNumber() {

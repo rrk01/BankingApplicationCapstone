@@ -16,14 +16,14 @@ public class Staff {
 	private String name;
 	private String userName;
 	private String password;
-	private AccountStatus status;
+	private StaffStatus status=StaffStatus.DISABLED;
 	
 	public Staff() {
 		super();
 	}
 
 
-	public Staff(long id, String name, String userName, String password, AccountStatus status) {
+	public Staff(long id, String name, String userName, String password, StaffStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -64,11 +64,11 @@ public class Staff {
 		this.password = password;
 	}
 
-	public AccountStatus getStatus() {
+	public StaffStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(AccountStatus status) {
+	public void setStatus(StaffStatus status) {
 		this.status = status;
 	}
 	
