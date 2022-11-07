@@ -216,4 +216,8 @@ public class CustomerController {
 		accountRepo.save(updateAccountBalance_2); 
 		return ResponseEntity.ok(updateAccountBalance);
 	}
+	@GetMapping("/{custID}/account")
+	public List<Account> getAllCustomerAccount(@Valid @PathVariable("custID") long custID) {
+		return customerService.findAllCustomerAccount(custID);
+	}
 }
