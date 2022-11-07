@@ -67,35 +67,36 @@ public class CustomerController {
 	@PostMapping(value="/register", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object>  registerCustomer(@RequestBody Customer customer) {
 		LinkedHashMap obj = new LinkedHashMap();
+		Customer newcustomer=customerService.registerCustomer(customer);
 		String jsonString="";
 		 try {
-			obj.put("id", customer.getId());
-			obj.put("username", customer.getUserName());
-			obj.put("fullname", customer.getFullName());
-			obj.put("password", customer.getPassword());
+			obj.put("id", newcustomer.getId());
+			obj.put("username", newcustomer.getUserName());
+			obj.put("fullname", newcustomer.getFullName());
+			obj.put("password", newcustomer.getPassword());
 			jsonString=new ObjectMapper().writeValueAsString(obj);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		 customerService.registerCustomer(customer);
 		 return ResponseEntity.status(HttpStatus.OK).body(jsonString.toString());
 	}
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping(value="/{id}/account",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> createCustomerAccount(@Valid @PathVariable long id,@RequestBody Account account) {
 		/*accountType:Enum(SB/CA), accountBalance:Number, approved: String -no (default)*/
+		
 		LinkedHashMap obj = new LinkedHashMap();
+		Account newaccount=customerService.createCustomerAccount(id, account);
 		String jsonString="";
 		 try {
-			obj.put("accountType", account.getAccountType());
-			obj.put("accountBalance", account.getAccountBalance());
-			obj.put("approved", account.isApproved());
+			obj.put("accountType", newaccount.getAccountType());
+			obj.put("accountBalance", newaccount.getAccountBalance());
+			obj.put("approved", newaccount.isApproved());
 			jsonString=new ObjectMapper().writeValueAsString(obj);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		customerService.createCustomerAccount(id, account);
 		return ResponseEntity.status(HttpStatus.OK).body(jsonString.toString());
 	
 	}
@@ -135,8 +136,8 @@ public class CustomerController {
 		 try {
 			obj.put("id", updatedcustomer.getId());
 			obj.put("ssn", updatedcustomer.getSSN());
-			obj.put("fullName", customer.getFullName());
-			obj.put("phone", customer.getPhone());
+			obj.put("fullName", updatedcustomer.getFullName());
+			obj.put("phone", updatedcustomer.getPhone());
 			obj.put("secretQuestion", updatedcustomer.getSecretQuestion());
 			obj.put("secretAnswer", updatedcustomer.getSecretAnswer());
 			jsonString=new ObjectMapper().writeValueAsString(obj);
@@ -157,13 +158,13 @@ public class CustomerController {
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping(value="/{custID}/beneficiary",produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object>  addBeneficiary(@Valid @RequestBody Beneficiary beneficiary, @PathVariable("custID") long custID) {
-		customerService.addBeneficiary(beneficiary,custID);
+		Beneficiary newbeneficiary=customerService.addBeneficiary(beneficiary,custID);
 		LinkedHashMap obj = new LinkedHashMap();
 		String jsonString="";
 		 try {
-			obj.put("accountNumber", beneficiary.getAccountNumber());
-			obj.put("accountType", beneficiary.getAccountType());
-			obj.put("approved", beneficiary.getApproved());
+			obj.put("accountNumber", newbeneficiary.getAccountNumber());
+			obj.put("accountType", newbeneficiary.getAccountType());
+			obj.put("approved", newbeneficiary.getApproved());
 			jsonString=new ObjectMapper().writeValueAsString(obj);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
