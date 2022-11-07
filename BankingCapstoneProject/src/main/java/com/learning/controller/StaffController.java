@@ -19,6 +19,7 @@ import com.learning.entity.Account;
 import com.learning.entity.Beneficiary;
 import com.learning.entity.Customer;
 import com.learning.entity.CustomerStatus;
+import com.learning.entity.Staff;
 import com.learning.entity.Transfer;
 
 /*import com.fasterxml.jackson.annotation.JsonInclude;
@@ -163,5 +164,10 @@ public class StaffController {
 		accountRepo.save(updateAccountBalance);
 		accountRepo.save(updateAccountBalance_2); 
 		return ResponseEntity.ok(updateAccountBalance);
+	}
+	
+	@GetMapping("/getstaff")
+	public List<Staff> listAllStaffMembers() {
+		return staffService.listAllStaffMembers();
 	}
 }
