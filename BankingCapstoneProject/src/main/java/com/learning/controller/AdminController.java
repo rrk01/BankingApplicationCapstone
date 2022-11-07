@@ -24,8 +24,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.learning.entity.Staff;
 import com.learning.service.StaffService;
 
-@RestController
 @CrossOrigin
+@RestController
 @RequestMapping("/api/admin")
 public class AdminController {
 	@Autowired
@@ -60,6 +60,7 @@ public class AdminController {
 			 try {
 				obj.put("id", staffMembers.get(i).getId());
 				obj.put("name", staffMembers.get(i).getName());
+				obj.put("userName", staffMembers.get(i).getUserName());
 				obj.put("status", staffMembers.get(i).getStatus());
 				jsonString=new ObjectMapper().writeValueAsString(obj);
 			} catch (Exception e) {
