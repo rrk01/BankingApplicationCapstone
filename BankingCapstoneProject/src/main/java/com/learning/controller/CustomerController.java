@@ -2,6 +2,7 @@ package com.learning.controller;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -86,12 +87,14 @@ public class CustomerController {
 		/*accountType:Enum(SB/CA), accountBalance:Number, approved: String -no (default)*/
 		
 		LinkedHashMap obj = new LinkedHashMap();
+		account.setDateOfCreation(new Date(LocalDate.now().getYear(),LocalDate.now().getDayOfMonth(),LocalDate.now().getDayOfMonth()));
 		Account newaccount=customerService.createCustomerAccount(id, account);
 		String jsonString="";
 		 try {
 			obj.put("accountType", newaccount.getAccountType());
 			obj.put("accountBalance", newaccount.getAccountBalance());
 			obj.put("approved", newaccount.isApproved());
+			obj.put("dateOfCreation", newaccount.getDateOfCreation());
 			jsonString=new ObjectMapper().writeValueAsString(obj);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
