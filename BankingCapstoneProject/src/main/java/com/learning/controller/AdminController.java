@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.learning.entity.Approver;
 import com.learning.entity.Staff;
+import com.learning.service.AdminService;
 import com.learning.service.StaffService;
 
 @CrossOrigin
@@ -30,6 +32,14 @@ import com.learning.service.StaffService;
 public class AdminController {
 	@Autowired
 	StaffService staffService;
+	@Autowired
+	AdminService adminService;
+	
+	@GetMapping("/getadmin")
+	public List<Approver> getAllApprovers(){
+		return adminService.getAllApprovers();
+	}
+	
 	
 	@JsonInclude(JsonInclude.Include.NON_NULL)
 	@PostMapping(value="/staff",produces = MediaType.APPLICATION_JSON_VALUE)
