@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name="staff")
 public class Staff {
@@ -15,15 +16,14 @@ public class Staff {
 	private String name;
 	private String userName;
 	private String password;
-	private AccountStatus status;
-	
+	private StaffStatus status=StaffStatus.DISABLED;
 	
 	public Staff() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public Staff(long id, String name, String userName, String password, AccountStatus status) {
+
+	public Staff(long id, String name, String userName, String password, StaffStatus status) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,52 +32,43 @@ public class Staff {
 		this.status = status;
 	}
 
-
 	public long getId() {
 		return id;
 	}
-
 
 	public void setId(long id) {
 		this.id = id;
 	}
 
-
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public String getUserName() {
 		return userName;
 	}
-
 
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-
 	public String getPassword() {
 		return password;
 	}
-
 
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
-	public AccountStatus getStatus() {
+	public StaffStatus getStatus() {
 		return status;
 	}
 	
-	public void setStatus(AccountStatus status) {
+	public void setStatus(StaffStatus status) {
 		this.status = status;
 	}
 	
