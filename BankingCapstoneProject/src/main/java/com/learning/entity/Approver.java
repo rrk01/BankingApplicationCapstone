@@ -20,7 +20,7 @@ public class Approver {
 	@Size(min=5, max=255)
 	@Column(name="fullName")
 	private String fullName;
-  private String passWord;
+	private String passWord;
 
 	public Approver() {
 		super();

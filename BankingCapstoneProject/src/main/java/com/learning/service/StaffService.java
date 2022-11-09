@@ -1,47 +1,39 @@
 package com.learning.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.learning.entity.Account;
 import com.learning.entity.AccountStatus;
 import com.learning.entity.Beneficiary;
-import com.learning.entity.Customer;
 import com.learning.entity.Staff;
+import com.learning.repo.AccountRepo;
+import com.learning.repo.BeneficiaryRepo;
 import com.learning.repo.StaffRepo;
 
 @Service
 public class StaffService {
 	@Autowired
 	StaffRepo staffRepo;
+	@Autowired
+	BeneficiaryRepo beneficiaryRepo;
+	@Autowired
+	AccountRepo accountRepo;
 	
 	public Staff createStaffMember(Staff staff) {
 		return staffRepo.save(staff);
 	}
 	
-	public Account getParticularAccount(long accountNumber) {
-		return staffRepo.getParticularAccount(accountNumber);
-	}
-	
 	public List<Beneficiary> getAllBeneficiary() {
-		return staffRepo.getAllBeneficiary(); 
+		return beneficiaryRepo.getAllBeneficiary(); 
 	}
 	
 	public List<Beneficiary> getAllBeneficiaryApproved() {
-		return staffRepo.getAllBeneficiary(); 
+		return beneficiaryRepo.getAllBeneficiaryApproved(); 
 	}
 	
 	public List<Account> getAccountsNotApproved(){
-		return staffRepo.getAccountsNotApproved();
-	}
-	
-	public List<Customer> getCustomer() {
-		return staffRepo.getCustomer();
-	}
-
-	public Customer getCustomerById(long customerId) {
-		return staffRepo.getCustomerById(customerId);
+		return accountRepo.getAccountsNotApproved();
 	}
 
 	// Enable / Disable 

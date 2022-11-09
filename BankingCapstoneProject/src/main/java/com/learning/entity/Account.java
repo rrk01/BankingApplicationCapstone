@@ -2,6 +2,8 @@ package com.learning.entity;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -25,17 +27,19 @@ public class Account {
 	private BigDecimal accountBalance;
 	@Column(name="approved")
 	private boolean approved;
-
 //	private accounttype accountType;
 	@Column(name = "creation_date")
 	private Date dateOfCreation;
+	 @Column(name="transactions_")
+	 @ElementCollection(targetClass=Transaction.class)
+	private List<Transaction> transactions;
 
 	public Account() {
 		super();
 	}
   
 	public Account(long accountNumber, long customerId, AccountType accountType, AccountStatus accountStatus,
-			BigDecimal accountBalance, boolean approved, Date dateOfCreation) {
+			BigDecimal accountBalance, boolean approved, Date dateOfCreation, List<Transaction> transactions) {
 		super();
 
 		this.accountNumber = accountNumber;
@@ -45,6 +49,7 @@ public class Account {
 		this.accountBalance = accountBalance;
 		this.approved = approved;
 		this.dateOfCreation = dateOfCreation;
+		this.transactions = transactions;
     
 	}
   
@@ -102,6 +107,14 @@ public class Account {
 
 	public void setDateOfCreation(Date dateOfCreation) {
 		this.dateOfCreation = dateOfCreation;
+	}
+
+	public List<Transaction> getTransactions() {
+		return transactions;
+	}
+
+	public void setTransactions(List<Transaction> transactions) {
+		this.transactions = transactions;
 	}
 
 }
