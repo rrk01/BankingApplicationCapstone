@@ -58,6 +58,7 @@ public class StaffController {
 	CustomerRepo customerRepo;
 	@Autowired
 	CustomerService customerService;
+	
 
 	@PutMapping(value="/{custId}/account/{accountNumber}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object>  approveAccount(@PathVariable("custId") long id, @PathVariable("accountNumber") long accountNumber) {
@@ -106,7 +107,7 @@ public class StaffController {
 
 	@GetMapping("/account/{accountNumber}") // GET the statement of particular (transactions) account
 	public Account getParticularAccount(@PathVariable("accountNumber") long accountNumber) {
-		return staffService.getParticularAccount(accountNumber);
+		return accountRepo.getParticularAccount(accountNumber);
 	}
 
 	@GetMapping("/beneficiary") // GETS beneficiary that need to be approved
@@ -143,7 +144,7 @@ public class StaffController {
 	@PutMapping("/accounts/approved/{accountNumber}/{customerId}")
 	public ResponseEntity<Account> updateAccountType(@PathVariable("accountNumber") long accountNumber,
 			@PathVariable("customerId") long customerId) {
-		Account updateAccountType = staffRepo.getParticularAccountType(accountNumber, customerId)
+		Account updateAccountType = accountRepo.getParticularAccountType(accountNumber, customerId)
 				.orElseThrow(() -> new RuntimeException("Account Not exisit with id: " + accountNumber));
 
 		updateAccountType.setApproved(true);
@@ -153,7 +154,7 @@ public class StaffController {
 
 	@GetMapping("/customer")
 	public List<Customer> getCustomer() {
-		return staffService.getCustomer();
+		return customerRepo.getCustomer();
 	}
 
 	@PutMapping("/customer/enable/{customerId}")
@@ -178,7 +179,7 @@ public class StaffController {
 
 	@GetMapping("/customer/{customerId}")
 	public Customer getCustomerById(@PathVariable("customerId") long customerId) {
-		return staffService.getCustomerById(customerId);
+		return customerRepo.getCustomerById(customerId);
 	}
 
 	@Autowired

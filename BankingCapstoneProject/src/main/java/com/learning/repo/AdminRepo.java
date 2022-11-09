@@ -17,3 +17,4 @@ import com.learning.entity.Approver;
 public interface AdminRepo extends JpaRepository<Approver, Long> {
 
 }
+
