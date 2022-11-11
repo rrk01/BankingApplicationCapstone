@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 enum CardType{
 	CREDIT,DEBIT
@@ -11,6 +13,7 @@ enum CardType{
 @Entity 
 public class Transaction {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private long t_id;
 	private long account_number; // This connects it to the Account. 
 	private String t_reason ;// WHAT IS TRANSACTION NAME? CHANGE TO REASON?

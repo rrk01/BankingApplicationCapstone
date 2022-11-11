@@ -24,7 +24,7 @@ public class Customer {
 	 * password: String 
 	 * role: enum RoleType (CUSTOMER, STAFF, ADMIN)
 	 */
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
